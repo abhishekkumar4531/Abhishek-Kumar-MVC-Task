@@ -3,7 +3,7 @@
       <dt><label for="first_name">Enter your first name</label></dt>
       <dd>
         <input type="text" name="first_name" id="first_name" required onblur="checkFname()" placeholder="Enter your first name"
-        value="<?php if(isset($_SESSION['userFirstName'])){echo $_SESSION['userFirstName'];} ?>"
+        value="<?php if(isset($_POST['first_name'])){echo $_POST['first_name'];} ?>"
         >
       </dd>
       <dd>
@@ -12,7 +12,7 @@
       <dt><label for="last_name">Enter your last name</label></dt>
       <dd>
         <input type="text" name="last_name" id="last_name" required onblur="checkLname()" placeholder="Enter your last name"
-        value="<?php if(isset($_SESSION['userLastName'])){echo $_SESSION['userLastName'];} ?>"
+        value="<?php if(isset($_POST['last_name'])){echo $_POST['last_name'];} ?>"
         >
       </dd>
       <dd>
@@ -21,7 +21,7 @@
       <dt><label for="pwd">Enter your password</label></dt>
       <dd>
         <input type="text" name="pwd" id="pwd" required onblur="checkPasswordStatus()" placeholder="Enter your password"
-        value="<?php if(isset($_SESSION['userPassword'])){echo $_SESSION['userPassword'];} ?>"
+        value="<?php if(isset($_POST['userPassword'])){echo $_POST['userPassword'];} ?>"
         >
       </dd>
       <dd>
@@ -30,7 +30,7 @@
       <dt><label for="mobile">Enter your mobile</label></dt>
       <dd>
         <input type="text" name="mobile" id="mobile" required onblur="checkPhoneNo()" placeholder="Enter your mobile no"
-        value="<?php if(isset($_SESSION['userMobile'])){echo $_SESSION['userMobile'];} ?>"
+        value="<?php if(isset($_POST['userMobile'])){echo $_POST['userMobile'];} ?>"
         >
       </dd>
       <dd>
@@ -39,14 +39,14 @@
       <dt><label for="email">Enter your email</label></dt>
       <dd>
         <input type="text" name="email" id="email" required onblur="checkEmailStatus()" placeholder="Enter your email"
-        value="<?php if(isset($_SESSION['userEmail'])){echo $_SESSION['userEmail'];} ?>"
+        value="<?php if(isset($_POST['userEmail'])){echo $_POST['userEmail'];} ?>"
         >
       </dd>
       <dd>
         <span id="email_status"></span>
       </dd>
       <dd>
-        <span class="error_msg"><?php if(isset($_SESSION['DuplicateErrorMsg']) && $_SESSION['DuplicateErrorMsg']){echo "Please Enter Unique Email-Address!!!";} ?></span>
+        <span class="error_msg"><?php if(isset($GLOBALS['DuplicateErrorMsg']) && $GLOBALS['DuplicateErrorMsg']){echo "Please Enter Unique Email-Address!!!";} ?></span>
       </dd>
       <dt>Upload your img</dt>
       <dd>

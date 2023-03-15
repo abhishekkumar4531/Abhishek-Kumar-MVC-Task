@@ -18,8 +18,8 @@
         $this->view("register");
       }
       else {
-        header("location: /userControl");
-        //$this->view("home");
+        //header("location: /userControl");
+        $this->view("home");
       }
     }
 
@@ -29,8 +29,8 @@
       }
       else {
         echo "<script>alert('First log-in!!!');</script>";
-        header("location: /userControl");
-        //$this->view("userControl");
+        //header("location: /login");
+        $this->view("userControl");
       }
     }
 
@@ -48,8 +48,8 @@
       }
       else {
         echo "<script>alert('First log-in!!!');</script>";
-        header("location: /userControl");
-        //$this->view("userControl");
+        //header("location: /userControl");
+        $this->view("userControl");
       }
     }
 
@@ -57,23 +57,23 @@
       if(isset($_POST['submitLogin'])) {
         $userEmail = $_POST['useremail'];
         $userPwds = $_POST['userpassword'];
-        $_SESSION['userLoginEmail'] = $_POST['useremail'];
-        $_SESSION['userPwds'] = $_POST['userpassword'];
 
         $obj = new userAccount();
         $login_status = $obj->loginRequest($userEmail, $userPwds);
-        $_SESSION['emailErrorMsg'] = $obj->emailErrorMsg;
-        $_SESSION['pwdErrorMsg'] = $obj->pwdErrorMsg;
+        $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
+        $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
         if($login_status) {
-          $_SESSION['emailErrorMsg'] = $obj->emailErrorMsg;
-          $_SESSION['pwdErrorMsg'] = $obj->pwdErrorMsg;
+          session_start();
+          $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
+          $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
           $_SESSION['logged_in'] = $userEmail;
-          //$this->view("home");
-          header("location: /userControl");
+          //echo "Logged-in";
+          $this->view("home");
+          //header("location: /userControl");
         }
         else {
-          $_SESSION['emailErrorMsg'] = $obj->emailErrorMsg;
-          $_SESSION['pwdErrorMsg'] = $obj->pwdErrorMsg;
+          $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
+          $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
           $this->view("login");
           //header("location: /login");
         }
@@ -90,11 +90,6 @@
         $img_name = $_FILES['user_img']['name'];
         $img_tmp = $_FILES['user_img']['tmp_name'];
         $img_type = $_FILES['user_img']['type'];
-        $_SESSION['userFirstName'] = $_POST['first_name'];
-        $_SESSION['userLastName'] = $_POST['last_name'];
-        $_SESSION['userPassword'] = $_POST['pwd'];
-        $_SESSION['userMobile'] = $_POST['mobile'];
-        $_SESSION['userEmail'] = $_POST['email'];
 
         if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
           move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
@@ -106,15 +101,16 @@
         }
         $obj = new userAccount();
         $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
-        $_SESSION['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+        $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
         if($status){
-          $_SESSION['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+          $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
           //echo "<br>Success!!!";
+          //session_unset();
           $this->view("login");
-          //header("location: /login");
+          //header("location: /userControl");
         }
         else {
-          $_SESSION['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+          $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
           //echo "<br>Error!!!";
           $this->view("register");
           //header("location: /register");
