@@ -5,7 +5,8 @@
     public $emailErrorMsg = false;
     public $pwdErrorMsg = false;
     public $duplicateEmailMsg = false;
-    public function loginRequest($userEmail, $userPassword){
+    public $userData = [];
+    public function loginRequest($userEmail, $userPassword) {
       $this->sendRequest("SELECT * FROM Account WHERE UserEmail = '$userEmail'");
       if ($this->result->num_rows > 0) {
         $row = $this->result->fetch_assoc();
@@ -14,7 +15,7 @@
           $this->pwdErrorMsg = false;
           return true;
         }
-        else{
+        else {
           $this->pwdErrorMsg = true;
           return false;
         }
@@ -25,7 +26,7 @@
       }
     }
 
-    public function registerRequest($userFirstName, $userLastName, $userPassword, $userMobile, $userEmail, $userImage){
+    public function registerRequest($userFirstName, $userLastName, $userPassword, $userMobile, $userEmail, $userImage) {
       $check_sql = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
 
       $result = $this->conn->query($check_sql);
@@ -41,13 +42,13 @@
           $this->duplicateEmailMsg = false;
           return true;
         }
-        else{
+        else {
           return false;
         }
       }
     }
 
-    public function showProfile($userEmail){
+    public function showProfile($userEmail) {
       $data = "SELECT * FROM Account WHERE UserEmail = '$userEmail'";
 
       $result = $this->conn->query($data);
@@ -62,6 +63,7 @@
 
       return $userData;
     }
+
   }
 
 ?>

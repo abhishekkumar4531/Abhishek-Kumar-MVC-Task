@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css?version">
+<link rel="stylesheet" href="<?php echo BASEURL; ?>/assets/css/style.css?version=1">
 <script src="<?php echo BASEURL; ?>/assets/js/validity.js?newversion"></script>
 <script type="text/javascript">
 reg_obj = new Validity();

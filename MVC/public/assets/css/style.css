@@ -46,7 +46,7 @@ input{
 button{
   padding: 10px;
   border-radius: 5px;
-  margin: 20px 0px;
+  margin: 25px 0px;
   width: 100%;
   font-size: 17px;
   font-weight: bold;
@@ -87,4 +87,9 @@ dd span{
 }
 .dd-img img{
   border-radius: 50%;
+}
+.profile-form input{
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 }

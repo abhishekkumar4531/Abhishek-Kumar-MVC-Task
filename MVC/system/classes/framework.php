@@ -2,15 +2,16 @@
 
   class framework
   {
-    public function view($fileName){
-      if(file_exists("../application/view/". $fileName .".php")){
+    public function view($fileName) {
+      if(file_exists("../application/view/". $fileName .".php")) {
         require_once "../application/view/$fileName.php";
       }
-      else{
+      else {
         echo "<script>alert('Error!!!');</script>";
         $this->view("login");
       }
     }
+
   }
 
 ?>
