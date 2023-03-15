@@ -1,8 +1,3 @@
-<?php
-  if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])){
-    header("location: /login");
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home-Page</title>
+  <?php include "components/header.php" ?>
 </head>
 <body>
+  <?php include "components/navbar.php" ?>
   <h1>Welcome to Home-Page</h1>
 </body>
 </html>

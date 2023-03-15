@@ -7,7 +7,8 @@
         require_once "../application/view/$fileName.php";
       }
       else{
-        echo "File name : ". $fileName ." not exist";
+        echo "<script>alert('Error!!!');</script>";
+        $this->view("login");
       }
     }
   }
