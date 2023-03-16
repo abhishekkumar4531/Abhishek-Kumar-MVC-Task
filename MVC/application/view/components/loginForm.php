@@ -6,9 +6,8 @@
       value = "<?php if(isset($_POST['useremail'])){echo $_POST['useremail'];} ?>"
       >
     </dd>
-    <dd>
-      <span id="email_status"></span>
-    </dd>
+    <dd id="email_success" class="success-msg"></dd>
+    <dd id="email_status" class="error-msg"></dd>
     <dd class="error-msg">
       <?php
         if(isset($GLOBALS['emailErrorStatus']) && $GLOBALS['emailErrorStatus']) {
@@ -22,9 +21,8 @@
       value = "<?php if(isset($_POST['userpassword'])){echo $_POST['userpassword'];} ?>"
       >
     </dd>
-    <dd>
-      <span id="pwd_status"></span>
-    </dd>
+    <dd id="pwd_success" class="success-msg"></dd>
+    <dd id="pwd_status" class="error-msg"></dd>
     <dd class="error-msg">
     <?php
       if(isset($GLOBALS['pwdErrorStatus']) && $GLOBALS['pwdErrorStatus']) {

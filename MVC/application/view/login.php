@@ -7,7 +7,7 @@
   <title>User-Login</title>
   <?php include "components/header.php" ?>
 </head>
-<body>
+<body class="parent-tag">
   <?php include "components/navbar.php" ?>
   <div class="container">
     <div class="form-content">

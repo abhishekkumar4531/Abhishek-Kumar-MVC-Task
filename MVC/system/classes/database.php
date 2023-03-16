@@ -1,7 +1,7 @@
 <?php
 
-  class database
-  {
+  class Database {
+
     public $user = USER;
     public $host = HOST;
     public $db = DATABASE;

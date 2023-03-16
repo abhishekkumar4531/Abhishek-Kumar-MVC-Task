@@ -1,7 +1,6 @@
 <?php
 
-  class rout
-	{
+  class Routing {
     public $controller = "userControl";
     public $method = "index";
     public $params = [];
@@ -9,16 +8,19 @@
 
     function __construct() {
       $url = $this->getUrl();
-      if(!empty($url)){
+      if(!empty($url)) {
         if(file_exists("../application/controller/". $url[0] .".php")) {
           $this->controller = $url[0];
           unset($url[0]);
           $this->check = true;
         }
-        /*else{
+        /*else {
           echo $url[0] ." File not exits<br>";
         }*/
       }
+      // else{
+      //   $this->controller = ucfirst($this->controller);
+      // }
       require_once "../application/controller/". $this->controller .".php";
       $this->controller = new $this->controller();
 
@@ -48,6 +50,7 @@
       if (isset($_SERVER["REQUEST_URI"])) {
         $url = $_SERVER["REQUEST_URI"];
         $url = rtrim($url);
+        $url = ucfirst($url);
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $url = explode("/", substr($url, 1));
       }

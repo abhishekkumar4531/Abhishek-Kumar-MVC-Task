@@ -56,7 +56,7 @@
         <button name="submitBtn" id="changeProfile">Submit</button>
       </dd>
       <dd>
-        <a href="http://mvc-task.com/userControl">Go to back</a>
+        <a href="http://mvc-task.com/afterLogin">Go to back</a>
       </dd>
     </dl>
   </form>

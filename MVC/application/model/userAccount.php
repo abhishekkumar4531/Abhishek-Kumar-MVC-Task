@@ -1,7 +1,7 @@
 <?php
 
-  class userAccount extends database
-  {
+  class UserAccount extends Database {
+
     public $emailErrorMsg = false;
     public $pwdErrorMsg = false;
     public $duplicateEmailMsg = false;

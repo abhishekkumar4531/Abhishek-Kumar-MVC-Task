@@ -7,8 +7,16 @@
   <title>Home-Page</title>
   <?php include "components/header.php" ?>
 </head>
-<body>
+<body class="parent-tag">
   <?php include "components/navbar.php" ?>
-  <h1>Welcome to Home-Page</h1>
+  <div class="container">
+    <div class="home-page">
+      <h5>Welcome back <?php if(isset($_SESSION['logged_in'])) {echo $_SESSION['userFirstName'];}?></h5>
+      <?php include "components/userPostForm.php" ?>
+      <div class="m-2">
+        <?php include "components/defaultHome.php" ?>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

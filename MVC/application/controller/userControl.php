@@ -1,16 +1,18 @@
 <?php
-  require("../application/model/userAccount.php");
-  class userControl extends framework
-  {
+  require '../application/model/userAccount.php';
+  class UserControl extends Framework {
     public function index() {
+      session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+        session_destroy();
         $this->view("login");
         //header("location: /login");
       }
       else {
-        $this->view("home");
+        header("location: /afterLogin");
+        //header("location: /home");
+        //$this->view("login");
       }
-      //header("location: /home");
     }
 
     public function userSignup() {
@@ -23,7 +25,7 @@
       }
     }
 
-    public function userLogout() {
+    /*public function userLogout() {
       if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
         $this->view("logout");
       }
@@ -32,9 +34,9 @@
         //header("location: /login");
         $this->view("userControl");
       }
-    }
+    }*/
 
-    public function userProfile() {
+    /*public function userProfile() {
       if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
         $obj = new userAccount();
         $data = $obj->showProfile($_SESSION['logged_in']);
@@ -51,25 +53,26 @@
         //header("location: /userControl");
         $this->view("userControl");
       }
-    }
+    }*/
 
     public function userLogin() {
       if(isset($_POST['submitLogin'])) {
         $userEmail = $_POST['useremail'];
         $userPwds = $_POST['userpassword'];
 
-        $obj = new userAccount();
+        $obj = new UserAccount();
         $login_status = $obj->loginRequest($userEmail, $userPwds);
         $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
         $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
         if($login_status) {
           session_start();
+          //$GLOBALS['checkLogin'] = true;
           $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
           $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
           $_SESSION['logged_in'] = $userEmail;
           //echo "Logged-in";
-          $this->view("home");
-          //header("location: /userControl");
+          //$this->view("home");
+          header("location: /afterLogin");
         }
         else {
           $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
@@ -99,7 +102,7 @@
           echo "<script>alert('Please check file error!!!');</script>";
           $this->view("register");
         }
-        $obj = new userAccount();
+        $obj = new UserAccount();
         $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
         $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
         if($status){

@@ -1,7 +1,8 @@
 <?php
 	spl_autoload_register(function($className){
-		include "classes/$className.php";
+		$class_name = lcfirst($className);
+		include "classes/$class_name.php";
 	});
 
-	$rout = new rout();
+	$routing = new Routing();
 ?>
