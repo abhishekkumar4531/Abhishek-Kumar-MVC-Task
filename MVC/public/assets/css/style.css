@@ -112,16 +112,23 @@ nav{
 .col-6 {
   position: relative;
 }
-.col-6-items {
+.first-column {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   color: black;
   padding: 30px 50px;
 }
-.col-6-items h2 {
+.first-column h2 {
   margin: 20px 0px;
   font-size: 35px;
+}
+.second-column {
+  padding: 30px 100px;
+}
+.second-column img {
+  height: 350px;
+  width: 350px;
 }
 .btn-circle button:last-child{
   border-radius: 50%;
@@ -130,29 +137,22 @@ nav{
 .btn-circle button:last-child span {
   font-size: 18px;
 }
-.col-6-img {
-  padding: 30px 50px;
-}
-.col-6-img img{
-  height: 450px;
-}
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
 .custom-file-input::before {
-  content: 'Upload';
+  content: 'Image';
   display: inline-block;
   background: linear-gradient(top, #f9f9f9, #e3e3e3);
   border-radius: 5px;
-  padding: 5px;
-  padding-left: 10px;
+  padding-left: 25px;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
   cursor: pointer;
   text-shadow: 2px 3px #fff;
   font-weight: 500;
-  font-size: 20pt;
+  font-size: 17pt;
 }
 .custom-file-input:hover::before {
   border-color: black;
@@ -163,13 +163,54 @@ nav{
 .custom-file-upload {
   padding-top: 40px;
 }
-.col-10-items textarea {
-  border: none;
+.post-container {
+  display: flex;
+  justify-content: space-around;
 }
-.col-2-img img {
+.upload-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  margin: 0px;
+  border-radius: 10px;
+  box-shadow: 2px 3px rgb(192, 189, 189);
+}
+.upload-container dd {
+  margin: 0px;
+}
+.upload-container textarea {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.custom-file-input {
+  position: relative;
+  top: 10%;
+}
+.post-container div:first-child img{
   border-radius: 50%;
 }
-.col-10-items textarea::placeholder {
-  padding: 35px;
-  font-size: 25px;
+.user-post-container {
+  text-align: center;
+}
+.post-display {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.post-display img {
+  width: 280px;
+  height: 300px;
+}
+.post-display p {
+  width: 250px;
+  font-size: 17px;
+  font-weight: bold;
+}
+.post-display .card-display {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10%;
+  box-shadow: 3px 3px rgb(192, 189, 189);
+  margin: 10px;
 }

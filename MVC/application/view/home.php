@@ -16,6 +16,11 @@
       <div class="m-2">
         <?php include "components/defaultHome.php" ?>
       </div>
+      <div class="user-post-container">
+        <div class="post-display">
+          <?php include "components/userPostedData.php" ?>
+        </div>
+      </div>
     </div>
   </div>
 </body>

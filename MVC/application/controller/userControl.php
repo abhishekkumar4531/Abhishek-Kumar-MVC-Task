@@ -70,6 +70,17 @@
           $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
           $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
           $_SESSION['logged_in'] = $userEmail;
+
+          $userPostData = $obj->showPost($_SESSION['logged_in']);
+          $_SESSION['userPostedData'] = $userPostData;
+
+          $data = $obj->showProfile($_SESSION['logged_in']);
+          $_SESSION['userFirstName'] = $data[0];
+          $_SESSION['userLastName'] = $data[1];
+          //$_SESSION['userPassword'] = $data[2];
+          $_SESSION['userMobile'] = $data[3];
+          //$_SESSION['userEmail'] = $data[4];
+          $_SESSION['userImageAddress'] = $data[5];
           //echo "Logged-in";
           //$this->view("home");
           header("location: /afterLogin");
