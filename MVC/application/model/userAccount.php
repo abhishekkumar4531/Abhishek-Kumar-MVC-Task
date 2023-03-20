@@ -1,12 +1,15 @@
 <?php
-
+  require '../../vendor/autoload.php';
+  use PHPMailer\PHPMailer\PHPMailer;
   class UserAccount extends Database {
 
     public $emailErrorMsg = false;
+    public $userEmailErrorMsg = false;
     public $pwdErrorMsg = false;
     public $duplicateEmailMsg = false;
     public $userData = [];
     public $allPostedData = [];
+    public $otpValue;
     public function loginRequest($userEmail, $userPassword) {
       $this->sendRequest("SELECT * FROM Account WHERE UserEmail = '$userEmail'");
       if ($this->result->num_rows > 0) {
@@ -142,6 +145,40 @@
 
       $connection->close();
       $this->conn->close();
+    }
+
+    public function verifyEmail($userEmail) {
+      $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
+      $result = $this->conn->query($find);
+      $row = $result->fetch_assoc();
+
+      if($row > 0) {
+          $email = $userEmail;
+          $otp = rand(100000, 999999);
+          $this->otpValue = $otp;
+
+          $mail = new PHPMailer();
+          $mail->isSMTP();
+          $mail->Host = 'smtp.gmail.com';
+          $mail->SMTPAuth = true;
+          $mail->Username = "abhi31kr45@gmail.com";
+          $mail->Password = "ylagckqsadjtgigz";
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+          $mail->Port = 587;
+
+          $mail->setFrom("abhi31kr45@gmail.com");
+          $mail->addAddress($email);
+          $mail->Subject = "Reset Password!!!";
+          $mail->isHTML(TRUE);
+          $mail->Body = "<b>Mail content:</b> Your OTP => $otp";
+          $mail->send();
+          $this->userEmailErrorMsg = false;
+          return true;
+      }
+      else {
+        $this->userEmailErrorMsg = true;
+        return false;
+      }
     }
 
   }

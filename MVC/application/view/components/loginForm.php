@@ -31,7 +31,7 @@
     ?>
     </dd>
     <dd>
-      <a href="/reset">Reset password!</a>
+      <a href="http://mvc-task.com/userControl/sendOTP">Reset password!</a>
     </dd>
 
     <dd>

@@ -1,6 +1,7 @@
 {
     "require": {
         "twbs/bootstrap": "5.0.2",
-        "twbs/bootstrap-icons": "^1.10"
+        "twbs/bootstrap-icons": "^1.10",
+        "phpmailer/phpmailer": "^6.7"
     }
 }

@@ -1,6 +1,7 @@
 <?php
   require '../application/model/userAccount.php';
   class UserControl extends Framework {
+    public $otpValueFromEmail;
     public function index() {
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
@@ -18,6 +19,16 @@
     public function userSignup() {
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
         $this->view("register");
+      }
+      else {
+        //header("location: /userControl");
+        $this->view("home");
+      }
+    }
+
+    public function sendOTP() {
+      if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+        $this->view("sendotp");
       }
       else {
         //header("location: /userControl");
@@ -132,9 +143,37 @@
       }
     }
 
-    public function editUserProfile() {
-      if(isset($_POST['changeProfle'])) {
+    public function resetPwd() {
+      if(isset($_POST['sendOtp'])) {
+        $obj = new UserAccount();
+        $verify = $obj->verifyEmail($_POST['user_email']);
+        $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
+        if($verify) {
+          //session_start();
+          $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
+          $GLOBALS['getOtp'] = $obj->otpValue;
+          $this->otpValueFromEmail = $obj->otpValue;
+          $userValues = $obj->showProfile($_POST['user_email']);
+          $GLOBALS['userName'] = $userValues[0] ." ". $userValues[1];
+          // echo "This is : ". $GLOBALS['getOtp'];
+          // echo "This is also name : ". $GLOBALS['userName'];
+          $this->view("reset");
+        }
+        else {
+          $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
+          $this->view("sendotp");
+        }
+      }
+    }
 
+    public function resetPassword() {
+      if(isset($_POST['resetPwd'])) {
+        if(number_format($this->otpValueFromEmail) == number_format($_POST['otp'])) {
+          echo "OTP is same";
+        }
+        else {
+          echo "OTP is not same";
+        }
       }
     }
 

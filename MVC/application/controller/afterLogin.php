@@ -54,7 +54,7 @@
     public function postData() {
       session_start();
       if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        if(isset($_POST['uploaded'])){
+        if(isset($_POST['uploaded'])) {
           $comment = $_POST['newPost'];
           $img_name = $_FILES['newImage']['name'];
           $img_tmp = $_FILES['newImage']['tmp_name'];
