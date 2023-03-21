@@ -9,7 +9,7 @@
           <textarea name="newPost" id="newPost" cols="90" rows="5" placeholder="What's in your mind!" required></textarea>
         </dd>
         <dd class="">
-          <input type="file" name="newImage" id="newImage" class="custom-file-input form-control">
+          <input type="file" name="newImage" id="newImage" class="custom-file-input form-control" required>
           <button name="uploaded">POST</button>
         </dd>
       </dl>

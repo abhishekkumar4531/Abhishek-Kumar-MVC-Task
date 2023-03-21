@@ -11,7 +11,7 @@
   <?php include "components/navbar.php" ?>
   <div class="container">
     <div class="form-content">
-      <div class="form-fields profile-form">
+      <div class="form-field profile-form">
         <h1>User Profile</h1>
         <?php include "components/profileForm.php" ?>
       </div>

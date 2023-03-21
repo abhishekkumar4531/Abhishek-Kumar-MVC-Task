@@ -16,7 +16,7 @@
     <dd id="invalid_lname" class="error-msg"></dd>
     <dt><label for="pwd">Enter your password</label></dt>
     <dd>
-      <input type="text" name="pwd" id="pwd" required onblur="checkPasswordStatus()" placeholder="Enter your password"
+      <input type="password" name="pwd" id="pwd" required onblur="checkPasswordStatus()" placeholder="Enter your password"
       value="<?php if(isset($_POST['pwd'])){echo $_POST['pwd'];} ?>"
       >
     </dd>

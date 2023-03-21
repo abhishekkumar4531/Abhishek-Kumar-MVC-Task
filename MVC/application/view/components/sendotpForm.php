@@ -17,7 +17,7 @@
         ?>
       </dd>
       <dd>
-        <button id="sendOtp" name="sendOtp">Send OTP</button>
+        <button id="submitBtn" name="sendOtp">Send OTP</button>
       </dd>
     </dl>
   </form>

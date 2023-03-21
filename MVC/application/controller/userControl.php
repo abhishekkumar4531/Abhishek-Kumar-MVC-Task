@@ -1,38 +1,42 @@
 <?php
   require '../application/model/userAccount.php';
   class UserControl extends Framework {
-    public $otpValueFromEmail;
     public function index() {
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        session_destroy();
+        if(!isset($_SESSION['storeOtp'])){
+          session_destroy();
+        }
         $this->view("login");
         //header("location: /login");
       }
       else {
         header("location: /afterLogin");
         //header("location: /home");
-        //$this->view("login");
       }
     }
 
     public function userSignup() {
+      session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+        session_destroy();
         $this->view("register");
       }
       else {
-        //header("location: /userControl");
-        $this->view("home");
+        header("location: /afterLogin");
+        //$this->view("home");
       }
     }
 
     public function sendOTP() {
+      session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+        session_destroy();
         $this->view("sendotp");
       }
       else {
-        //header("location: /userControl");
-        $this->view("home");
+        header("location: /afterLogin");
+        //$this->view("home");
       }
     }
 
@@ -92,7 +96,6 @@
           $_SESSION['userMobile'] = $data[3];
           //$_SESSION['userEmail'] = $data[4];
           $_SESSION['userImageAddress'] = $data[5];
-          //echo "Logged-in";
           //$this->view("home");
           header("location: /afterLogin");
         }
@@ -100,13 +103,17 @@
           $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
           $GLOBALS['pwdErrorStatus'] = $obj->pwdErrorMsg;
           $this->view("login");
-          //header("location: /login");
+          //header("location: /userControl");
         }
+      }
+      else {
+        //$this->view("login");
+        header("location: /userControl");
       }
     }
 
     public function userRegistration() {
-      if(isset($_POST['submitBtn'])){
+      if(isset($_POST['submitBtn'])) {
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $password = $_POST['pwd'];
@@ -121,25 +128,25 @@
           //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
         }
         else {
-          echo "<script>alert('Please check file error!!!');</script>";
-          $this->view("register");
+          //$this->view("register");
+          header("location: /userControl/userSignup");
         }
         $obj = new UserAccount();
         $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
         $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
         if($status){
           $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
-          //echo "<br>Success!!!";
-          //session_unset();
-          $this->view("login");
-          //header("location: /userControl");
+          //$this->view("login");
+          header("location: /userControl");
         }
         else {
           $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
-          //echo "<br>Error!!!";
           $this->view("register");
-          //header("location: /register");
+          //header("location: /userControl/userSignup");
         }
+      }
+      else {
+        header("location: /userControl/userSignup");
       }
     }
 
@@ -149,31 +156,57 @@
         $verify = $obj->verifyEmail($_POST['user_email']);
         $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
         if($verify) {
-          //session_start();
+          session_start();
           $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
-          $GLOBALS['getOtp'] = $obj->otpValue;
-          $this->otpValueFromEmail = $obj->otpValue;
+          $_SESSION['storeOtp'] = $obj->otpValue;
+          $_SESSION['resetUserEmail'] = $_POST['user_email'];
           $userValues = $obj->showProfile($_POST['user_email']);
           $GLOBALS['userName'] = $userValues[0] ." ". $userValues[1];
-          // echo "This is : ". $GLOBALS['getOtp'];
-          // echo "This is also name : ". $GLOBALS['userName'];
+          //echo "OTP is ". $_SESSION['storeOtp'];
           $this->view("reset");
         }
         else {
           $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
-          $this->view("sendotp");
+          //$this->view("sendotp");
+          header("location: /userControl/sendOTP");
         }
+      }
+      else {
+        header("location: /userControl/sendOTP");
       }
     }
 
     public function resetPassword() {
       if(isset($_POST['resetPwd'])) {
-        if(number_format($this->otpValueFromEmail) == number_format($_POST['otp'])) {
-          echo "OTP is same";
+        session_start();
+        if(isset($_SESSION['storeOtp'])) {
+          if(number_format($_SESSION['storeOtp']) === number_format($_POST['otp'])) {
+            $obj = new UserAccount();
+            $update = $obj->updatePassword($_SESSION['resetUserEmail'], $_POST['newPassword']);
+            if($update) {
+              session_destroy();
+              header("location: /userControl");
+            }
+            else {
+              session_destroy();
+              //$this->view("sendotp");
+              header("location: /userControl/sendOTP");
+            }
+          }
+          else {
+            session_destroy();
+            //$this->view("sendotp");
+            header("location: /userControl/sendOTP");
+          }
         }
         else {
-          echo "OTP is not same";
+          session_destroy();
+          header("location: /userControl/sendOTP");
         }
+      }
+      else {
+        //$this->view("sendotp");
+        header("location: /userControl/sendOTP");
       }
     }
 

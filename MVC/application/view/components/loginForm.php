@@ -17,7 +17,7 @@
     </dd>
     <dt>Enter User-Password</dt>
     <dd>
-      <input type="text" name="userpassword" id="pwd" placeholder="Enter User-Password" required onblur="checkPasswordStatus()"
+      <input type="password" name="userpassword" id="pwd" placeholder="Enter User-Password" required onblur="checkPasswordStatus()"
       value = "<?php if(isset($_POST['userpassword'])){echo $_POST['userpassword'];} ?>"
       >
     </dd>

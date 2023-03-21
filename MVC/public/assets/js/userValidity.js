@@ -33,7 +33,7 @@ class UserValidity{
     if(!(userName.match(this.check_valid))) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
@@ -43,7 +43,7 @@ class UserValidity{
     if(!(userPhone.match(this.check_phone))) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
@@ -53,7 +53,7 @@ class UserValidity{
     if(!(userEmail.match(this.check_email))) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
@@ -63,27 +63,27 @@ class UserValidity{
     if(!(userPwd.match(this.check_pwd))) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
 
   //comparePasswords is a parametrised method which is comparing user entered passwords.
-  diffPasswords(newPassword, rePassword) {
-    if(newPassword === rePassword){
-      return true;
-    }
-    else{
+  diffPasswords(currentPassword, newPassword) {
+    if(currentPassword === newPassword){
       return false;
+    }
+    else {
+      return true;
     }
   }
 
-  samePasswords(newPassword, rePassword) {
-    if(newPassword === rePassword){
-      return false;
-    }
-    else{
+  samePasswords(newPassword, cnfPassword) {
+    if(newPassword === cnfPassword){
       return true;
+    }
+    else {
+      return false;
     }
   }
 }

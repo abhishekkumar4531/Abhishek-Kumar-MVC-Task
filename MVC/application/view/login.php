@@ -11,7 +11,7 @@
   <?php include "components/navbar.php" ?>
   <div class="container">
     <div class="form-content">
-      <div class="form-fields">
+      <div class="form-field">
         <h1>User Log-in Page</h1>
         <?php include "components/loginForm.php" ?>
       </div>

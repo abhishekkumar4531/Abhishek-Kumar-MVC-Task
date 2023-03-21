@@ -67,6 +67,7 @@
       $userData[3]  = $row['UserMobile'];
       $userData[4]  = $row['UserEmail'];
       $userData[5]  = $row['UserImg'];
+      $userData[6]  = $row['UserBio'];
 
       return $userData;
       $this->conn->close();
@@ -177,6 +178,43 @@
       }
       else {
         $this->userEmailErrorMsg = true;
+        return false;
+      }
+    }
+
+    public function updatePassword($userEmail, $newPwd) {
+      $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
+      $result = $this->conn->query($find);
+
+      if($result->fetch_assoc() > 0) {
+        $post = "UPDATE Account SET UserPassword = '$newPwd' WHERE UserEmail = '$userEmail'";
+        if ($this->conn->query($post) === TRUE) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      else {
+        return false;
+      }
+    }
+
+    public function updateProfile($userEmail, $firstName, $lastName, $mobile, $userImage, $userBio) {
+      $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
+      $result = $this->conn->query($find);
+
+      if($result->fetch_assoc() > 0) {
+        $update = "UPDATE Account SET FirstName = '$firstName', LastName = '$lastName',
+        UserMobile = '$mobile', UserImg = '$userImage', UserBio = '$userBio' WHERE UserEmail = '$userEmail'";
+        if ($this->conn->query($update) === TRUE) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      else {
         return false;
       }
     }

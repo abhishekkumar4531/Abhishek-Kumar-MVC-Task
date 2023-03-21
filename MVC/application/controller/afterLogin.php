@@ -25,8 +25,8 @@
       }
       else {
         session_destroy();
-        //header("location: /login");
-        $this->view("userControl");
+        header("location: /userControl");
+        //$this->view("userControl");
       }
     }
 
@@ -41,11 +41,12 @@
         $_SESSION['userMobile'] = $data[3];
         //$_SESSION['userEmail'] = $data[4];
         $_SESSION['userImageAddress'] = $data[5];
+        $_SESSION['userBio'] = $data[6];
         $this->view("profile");
       }
       else {
         session_destroy();
-        echo "<script>alert('First log-in!!!');</script>";
+        //echo "<script>alert('First log-in!!!');</script>";
         header("location: /userControl");
         //$this->view("userControl");
       }
@@ -87,5 +88,41 @@
         header("location: /userControl");
       }
     }
+
+    public function editUserProfile() {
+      if(isset($_POST['update'])) {
+        $userEmail = $_POST['email'];
+        $userBio = $_POST['user_bio'];
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $mobile = $_POST['mobile'];
+        $img_name = $_FILES['user_img']['name'];
+        $img_tmp = $_FILES['user_img']['tmp_name'];
+        $img_type = $_FILES['user_img']['type'];
+
+        if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
+          move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
+          //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+        }
+        else {
+          //$this->view("register");
+          header("location: /afterLogin/userProfile");
+        }
+        $obj = new UserAccount();
+        $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
+        if($updateStatus) {
+          //$this->userProfile();
+          header("location: /afterLogin/userProfile");
+        }
+        else {
+          //$this->userProfile();
+          header("location: /afterLogin/userProfile");
+        }
+      }
+      else {
+        header("location: /afterLogin/userProfile");
+      }
+    }
+
   }
 ?>
