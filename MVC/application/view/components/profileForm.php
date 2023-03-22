@@ -9,9 +9,8 @@
     </dd>
     <dt><label for="user_bio">Edit/Add Your Bio</label></dt>
     <dd>
-      <textarea name="user_bio" id="user_bio" cols="41" rows="3" placeholder="Add Your Bio" required>
-        <?php if(isset($_SESSION['userBio'])){echo $_SESSION['userBio'];} ?>
-      </textarea>
+      <textarea name="user_bio" id="user_bio" cols="41" rows="3" placeholder="Add Your Bio" required
+      ><?php if(isset($_SESSION['userBio'])){echo $_SESSION['userBio'];} ?></textarea>
     </dd>
     <dt><label for="first_name">Your First-Name</label></dt>
     <dd>

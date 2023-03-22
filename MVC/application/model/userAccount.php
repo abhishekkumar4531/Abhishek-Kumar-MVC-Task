@@ -10,6 +10,7 @@
     public $userData = [];
     public $allPostedData = [];
     public $otpValue;
+    public $validationMsg = [];
     public function loginRequest($userEmail, $userPassword) {
       $this->sendRequest("SELECT * FROM Account WHERE UserEmail = '$userEmail'");
       if ($this->result->num_rows > 0) {
@@ -119,7 +120,7 @@
       $this->conn->close();
     }
 
-    public function showPost($userEmail) {
+    /*public function showPost($userEmail) {
       $connection = new mysqli($this->host, $this->user, $this->pwd, "UserPosts");
       $verify = "SELECT UserId, FirstName FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($verify);
@@ -146,6 +147,46 @@
 
       $connection->close();
       $this->conn->close();
+    }*/
+
+    public function showPublicPost($i) {
+      $fetchData = "SELECT PostComment, PostImage FROM Posts";
+      $execute = $this->conn->query($fetchData);
+      $count = $i + 9;
+      $i = 0;
+      if($execute->num_rows > 0) {
+        while($dataRow = $execute->fetch_assoc()){
+          $this->allPostedData[$i] = $dataRow;
+          $i++;
+          if($i > $count) {
+            return $this->allPostedData;
+          }
+        }
+        return $this->allPostedData;
+      }
+      else {
+        return null;
+      }
+      $this->conn->close();
+    }
+
+    public function publicPostData($userEmail, $postComment, $postImage) {
+      $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
+      $result = $this->conn->query($find);
+
+      if($result->fetch_assoc() > 0) {
+        $insert = "INSERT INTO Posts (UserEmail, PostComment, PostImage)
+        VALUES('$userEmail', '$postComment', '$postImage')";
+          if($this->conn->query($insert)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+      }
+      else {
+        return false;
+      }
     }
 
     public function verifyEmail($userEmail) {
@@ -217,6 +258,65 @@
       else {
         return false;
       }
+    }
+
+    public function updateWithoutImage($userEmail, $firstName, $lastName, $mobile, $userBio) {
+      $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
+      $result = $this->conn->query($find);
+
+      if($result->fetch_assoc() > 0) {
+        $update = "UPDATE Account SET FirstName = '$firstName', LastName = '$lastName',
+        UserMobile = '$mobile', UserBio = '$userBio' WHERE UserEmail = '$userEmail'";
+        if ($this->conn->query($update) === TRUE) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      else {
+        return false;
+      }
+    }
+
+    public function newUserValidation($firstName, $lastName, $password, $mobile, $email) {
+      if(preg_match("/^[A-Za-z]+$/", $firstName)) {
+        $this->validationMsg['firstName'] = true;
+      }
+      else {
+        $this->validationMsg['firstName'] = false;
+      }
+      if(preg_match("/^[A-Za-z]+$/", $lastName)) {
+        $this->validationMsg['lastName'] = true;
+      }
+      else {
+        $this->validationMsg['lastName'] = false;
+      }
+      if(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/", $password)) {
+        $this->validationMsg['password'] = true;
+      }
+      else {
+        $this->validationMsg['password'] = false;
+      }
+      if(preg_match("/^(\+91)[0-9]{10}$/", $mobile)) {
+        $this->validationMsg['mobile'] = true;
+      }
+      else {
+        $this->validationMsg['mobile'] = false;
+      }
+      if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $this->validationMsg['email'] = true;
+      }
+      else {
+        $this->validationMsg['email'] = false;
+      }
+
+      foreach($this->validationMsg as $status) {
+        if($status === false) {
+          return [false, $this->validationMsg];
+        }
+      }
+      return [true, $this->validationMsg];
     }
 
   }

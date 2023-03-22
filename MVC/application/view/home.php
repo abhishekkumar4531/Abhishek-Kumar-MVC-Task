@@ -21,6 +21,9 @@
           <?php include "components/userPostedData.php" ?>
         </div>
       </div>
+      <div>
+        <?php include "components/loadMore.php" ?>
+      </div>
     </div>
   </div>
 </body>

@@ -67,7 +67,7 @@ function confirmPassword() {
   var new_pwd = document.getElementById('pwd').value;
   var cnf_pwd = document.getElementById('cnfPwd').value;
   var status = reg_obj.samePasswords(new_pwd, cnf_pwd);
-  if(!status) {
+  if(status) {
     document.getElementById("cnfPwd_status").innerText = ``;
     document.getElementById("submitBtn").disabled = false;
   }

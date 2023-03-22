@@ -215,3 +215,10 @@ nav {
   box-shadow: 3px 3px rgb(192, 189, 189);
   margin: 10px;
 }
+.bot-icons span{
+  font-size: 20px;
+  color: red;
+}
+.bot-icons {
+  padding-top: 10px;
+}

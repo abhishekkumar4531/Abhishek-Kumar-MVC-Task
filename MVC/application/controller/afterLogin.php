@@ -11,6 +11,14 @@
         session_destroy();
         header("location: /userControl");
       }
+      else if(isset($_POST['loadBtn'])) {
+        $count = count($_SESSION['userPostedData']);
+        $obj = new UserAccount;
+        $userPostData = $obj->showPublicPost($count);
+        $_SESSION['userPostedData'] = $userPostData;
+        $this->view("home");
+        //header("location: /afterLogin");
+      }
       else {
         //echo "Success";
         $this->view("home");
@@ -70,12 +78,13 @@
             $this->view("home");
           }
           $obj = new UserAccount();
-          $obj->storePost($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
-          if($obj) {
-            $userPostData = $obj->showPost($_SESSION['logged_in']);
+          $status = $obj->storePost($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
+          $store = $obj->publicPostData($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
+          if($store) {
+            //$userPostData = $obj->showPost($_SESSION['logged_in']);
+            $userPostData = $obj->showPublicPost(0);
             $_SESSION['userPostedData'] = $userPostData;
             header("location: /afterLogin");
-            //$this->view("home");
           }
           else {
             header("location: /afterLogin");
@@ -96,27 +105,40 @@
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $mobile = $_POST['mobile'];
-        $img_name = $_FILES['user_img']['name'];
-        $img_tmp = $_FILES['user_img']['tmp_name'];
-        $img_type = $_FILES['user_img']['type'];
-
-        if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
-          move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
-          //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-        }
-        else {
-          //$this->view("register");
-          header("location: /afterLogin/userProfile");
-        }
         $obj = new UserAccount();
-        $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
-        if($updateStatus) {
-          //$this->userProfile();
-          header("location: /afterLogin/userProfile");
+        if(!empty($_FILES['user_img']['name'])) {
+          $img_name = $_FILES['user_img']['name'];
+          $img_tmp = $_FILES['user_img']['tmp_name'];
+          $img_type = $_FILES['user_img']['type'];
+
+          if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
+            move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
+            //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+          }
+          else {
+            //$this->view("register");
+            header("location: /afterLogin/userProfile");
+          }
+          $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
+          if($updateStatus) {
+            //$this->userProfile();
+            header("location: /afterLogin/userProfile");
+          }
+          else {
+            //$this->userProfile();
+            header("location: /afterLogin/userProfile");
+          }
         }
         else {
-          //$this->userProfile();
-          header("location: /afterLogin/userProfile");
+          $updateStatus = $obj->updateWithoutImage($userEmail, $firstName, $lastName, $mobile, $userBio);
+          if($updateStatus) {
+            //$this->userProfile();
+            header("location: /afterLogin/userProfile");
+          }
+          else {
+            //$this->userProfile();
+            header("location: /afterLogin/userProfile");
+          }
         }
       }
       else {
