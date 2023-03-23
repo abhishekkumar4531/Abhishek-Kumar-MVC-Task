@@ -5,8 +5,7 @@
       <h2>Your Next Social Life.</h2>
       <p>Your new Social Media Platform with stuff that actually matters</p>
       <div class="btn-circle">
-        <button class="btn btn-dark p-2">GET STARTED</button>
-        <button class="btn"><span class="bi bi-play text-dark"></span></button>
+        <button class="btn btn-dark p-2" id="getStarted">GET STARTED</button>
       </div>
     </div>
   </div>

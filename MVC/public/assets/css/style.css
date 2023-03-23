@@ -42,7 +42,7 @@ input {
   border: none;
   border-radius: 5px;
 }
-form button {
+form button, #loadMore {
   padding: 10px;
   border-radius: 5px;
   margin: 25px 0px;
@@ -131,13 +131,6 @@ nav {
   height: 350px;
   width: 350px;
 }
-.btn-circle button:last-child{
-  border-radius: 50%;
-  border: 1px solid black;
-}
-.btn-circle button:last-child span {
-  font-size: 18px;
-}
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
@@ -200,17 +193,17 @@ nav {
   flex-wrap: wrap;
 }
 .post-display img {
-  width: 280px;
-  height: 300px;
+  width: 300px;
+  height: 320px;
 }
 .post-display p {
+  text-align: left;
   width: 250px;
   font-size: 17px;
-  font-weight: bold;
 }
 .post-display .card-display {
   background-color: white;
-  padding: 30px;
+  padding: 15px;
   border-radius: 10%;
   box-shadow: 3px 3px rgb(192, 189, 189);
   margin: 10px;
@@ -221,4 +214,37 @@ nav {
 }
 .bot-icons {
   padding-top: 10px;
+}
+.post_by_user div {
+  display: flex;
+  justify-content: start;
+}
+.post_by_user img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.post_by_user h6 {
+  padding-top: 12px;
+  padding-left: 12px;
+  font-weight: bold;
+}
+.user-profile textarea {
+  border: none;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 17px;
+}
+.post_by_user a {
+  text-decoration: none;
+  color: black;
+}
+.user-identity {
+  text-align: center;
+}
+.user-identity img {
+  border-radius: 50%;
+}
+.user-identity h3 {
+  font-weight: bold;
 }

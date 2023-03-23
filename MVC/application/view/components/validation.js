@@ -7,8 +7,8 @@ function checkFname() {
     document.getElementById("submitBtn").disabled = true;
   }
   else {
-    document.getElementById(invalidName).innerHTML = '';
-    document.getElementById(submitBtn).disabled = false;
+    document.getElementById("invalid_fname").innerHTML = '';
+    document.getElementById("submitBtn").disabled = false;
   }
 }
 function checkLname() {

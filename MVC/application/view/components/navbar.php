@@ -14,10 +14,10 @@
       <li>
         <?php
           if(isset($_SESSION['logged_in'])) {
-            echo '<a href="http://mvc-task.com/afterLogin">Register</a>';
+            echo '<a href="http://mvc-task.com/afterLogin/userPosts">Account</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl/userSignup">Register</a>';
+            echo '<a href="http://mvc-task.com/userControl">Account</a>';
           }
         ?>
       </li>
@@ -27,7 +27,7 @@
             echo '<a href="http://mvc-task.com/afterLogin/userProfile">Profile</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl">Profile</a>';
+            echo '<a href="http://mvc-task.com/userControl/userSignup">Register</a>';
           }
         ?>
       </li>

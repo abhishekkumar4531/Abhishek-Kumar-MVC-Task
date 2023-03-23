@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home-Page</title>
   <?php include "components/header.php" ?>
+  <script type="text/javascript">
+    <?php include "components/loadMore.js" ?>
+  </script>
 </head>
 <body class="parent-tag">
   <?php include "components/navbar.php" ?>
@@ -17,12 +20,14 @@
         <?php include "components/defaultHome.php" ?>
       </div>
       <div class="user-post-container">
-        <div class="post-display">
-          <?php include "components/userPostedData.php" ?>
+        <div class="post-display" id="post-display">
+          <!-- <?php //include "components/userPostedData.php" ?> -->
         </div>
       </div>
       <div>
-        <?php include "components/loadMore.php" ?>
+        <div class="text-center p-2">
+          <button class="w-25 p-3" name="loadBtn" id="loadMore">Load More</button>
+        </div>
       </div>
     </div>
   </div>

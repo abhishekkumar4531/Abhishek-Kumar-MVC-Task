@@ -120,7 +120,7 @@
       $this->conn->close();
     }
 
-    /*public function showPost($userEmail) {
+    public function showPost($userEmail) {
       $connection = new mysqli($this->host, $this->user, $this->pwd, "UserPosts");
       $verify = "SELECT UserId, FirstName FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($verify);
@@ -147,16 +147,23 @@
 
       $connection->close();
       $this->conn->close();
-    }*/
+    }
 
     public function showPublicPost($i) {
-      $fetchData = "SELECT PostComment, PostImage FROM Posts";
+      $fetchData = "SELECT UserEmail, PostComment, PostImage FROM Posts ORDER BY PostId DESC";
       $execute = $this->conn->query($fetchData);
       $count = $i + 9;
       $i = 0;
       if($execute->num_rows > 0) {
         while($dataRow = $execute->fetch_assoc()){
           $this->allPostedData[$i] = $dataRow;
+          $userInfo = "SELECT FirstName, UserImg FROM Account WHERE UserEmail = '". $this->allPostedData[$i]['UserEmail'] ."'";
+          $result = $this->conn->query($userInfo);
+          if($result->num_rows > 0 == 1) {
+            $row = $result->fetch_assoc();
+            $this->allPostedData[$i]['UserName'] = $row['FirstName'];
+            $this->allPostedData[$i]['ImageAddress'] = $row['UserImg'];
+          }
           $i++;
           if($i > $count) {
             return $this->allPostedData;

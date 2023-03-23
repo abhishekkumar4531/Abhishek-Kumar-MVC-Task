@@ -11,14 +11,6 @@
         session_destroy();
         header("location: /userControl");
       }
-      else if(isset($_POST['loadBtn'])) {
-        $count = count($_SESSION['userPostedData']);
-        $obj = new UserAccount;
-        $userPostData = $obj->showPublicPost($count);
-        $_SESSION['userPostedData'] = $userPostData;
-        $this->view("home");
-        //header("location: /afterLogin");
-      }
       else {
         //echo "Success";
         $this->view("home");
@@ -64,7 +56,7 @@
       session_start();
       if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         if(isset($_POST['uploaded'])) {
-          $comment = $_POST['newPost'];
+          $comment = htmlspecialchars($_POST['newPost'], ENT_QUOTES);
           $img_name = $_FILES['newImage']['name'];
           $img_tmp = $_FILES['newImage']['tmp_name'];
           $img_type = $_FILES['newImage']['type'];
@@ -101,7 +93,7 @@
     public function editUserProfile() {
       if(isset($_POST['update'])) {
         $userEmail = $_POST['email'];
-        $userBio = $_POST['user_bio'];
+        $userBio = htmlspecialchars($_POST['user_bio'], ENT_QUOTES);
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $mobile = $_POST['mobile'];
@@ -143,6 +135,51 @@
       }
       else {
         header("location: /afterLogin/userProfile");
+      }
+    }
+
+    public function loadMoreContent() {
+      session_start();
+      if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        $count = count($_SESSION['userPostedData']);
+        $obj = new UserAccount;
+        $userPostData = $obj->showPublicPost($count);
+        $_SESSION['userPostedData'] = $userPostData;
+        include "../application/view/components/userPostedData.php";
+        //$this->view("home");
+      }
+      else {
+        session_destroy();
+        header("location: /userControl");
+      }
+    }
+
+    public function loadInitialContent() {
+      session_start();
+      if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        $obj = new UserAccount;
+        $userPostData = $obj->showPublicPost(0);
+        $_SESSION['userPostedData'] = $userPostData;
+        include "../application/view/components/userPostedData.php";
+        //$this->view("home");
+      }
+      else {
+        session_destroy();
+        header("location: /userControl");
+      }
+    }
+
+    public function userPosts() {
+      session_start();
+      if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        $obj = new UserAccount;
+        $userData = $obj->showPost($_SESSION['logged_in']);
+        $_SESSION['userPersonalPosts'] = $userData;
+        $this->view("account");
+      }
+      else {
+        session_destroy();
+        header("location: /userControl");
       }
     }
 
