@@ -97,6 +97,7 @@
           $_SESSION['userMobile'] = $data[3];
           //$_SESSION['userEmail'] = $data[4];
           $_SESSION['userImageAddress'] = $data[5];
+          $_SESSION['userBio'] = $data[6];
           //$this->view("home");
           header("location: /afterLogin");
         }

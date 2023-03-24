@@ -1,7 +1,7 @@
 <form action="http://mvc-task.com/afterLogin/editUserProfile" method="post" enctype="multipart/form-data">
-  <dl class="user-profile">
+  <dl>
     <dd class="dd-img">
-      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="150" height="150">
+      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
     </dd>
     <dt><label for="user_img">Update Your Profile-Image</label></dt>
     <dd>
@@ -9,13 +9,13 @@
     </dd>
     <dt><label for="user_bio">Edit/Add Your Bio</label></dt>
     <dd>
-      <textarea name="user_bio" id="user_bio" cols="36" rows="3" placeholder="Add Your Bio" required
+      <textarea name="user_bio" id="user_bio" cols="41" rows="3" placeholder="Add Your Bio" required
       ><?php if(isset($_SESSION['userBio'])){echo $_SESSION['userBio'];} ?></textarea>
     </dd>
     <dt><label for="first_name">Your First-Name</label></dt>
     <dd>
       <input type="text" name="first_name" id="first_name" required onblur="checkFname()"
-      value="<?php if(isset($_SESSION['userFirstName']) && isset($_SESSION['userLastName'])){echo $_SESSION['userFirstName'];} ?>"
+      value="<?php if(isset($_SESSION['userFirstName'])){echo $_SESSION['userFirstName'];} ?>"
       >
     </dd>
     <dd id="invalid_fname" class="error-msg"></dd>

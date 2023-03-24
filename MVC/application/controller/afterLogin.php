@@ -61,14 +61,15 @@
           $img_tmp = $_FILES['newImage']['tmp_name'];
           $img_type = $_FILES['newImage']['type'];
 
-          if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
+          /*if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
           }
           else {
             echo "<script>alert('Please check file error!!!');</script>";
             $this->view("home");
-          }
+          }*/
+          move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
           $obj = new UserAccount();
           $status = $obj->storePost($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
           $store = $obj->publicPostData($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
@@ -176,6 +177,33 @@
         $userData = $obj->showPost($_SESSION['logged_in']);
         $_SESSION['userPersonalPosts'] = $userData;
         $this->view("account");
+      }
+      else {
+        session_destroy();
+        header("location: /userControl");
+      }
+    }
+
+    public function profiles($userId) {
+      session_start();
+      if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+        $obj = new UserAccount;
+        $userData = $obj->getOthersProfile($userId);
+        if($userData != null) {
+          $GLOBALS['userInfo'] = $userData[0];
+          if($userData[1] != null) {
+            $GLOBALS['userPosts'] = $userData[1];
+          }
+          else {
+            unset($GLOBALS['userPosts']);
+          }
+          $this->view("user");
+        }
+        else {
+          unset($GLOBALS['userInfo']);
+          unset($GLOBALS['userPosts']);
+          header("location: /afterLogin");
+        }
       }
       else {
         session_destroy();

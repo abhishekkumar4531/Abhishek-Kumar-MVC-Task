@@ -157,10 +157,11 @@
       if($execute->num_rows > 0) {
         while($dataRow = $execute->fetch_assoc()){
           $this->allPostedData[$i] = $dataRow;
-          $userInfo = "SELECT FirstName, UserImg FROM Account WHERE UserEmail = '". $this->allPostedData[$i]['UserEmail'] ."'";
+          $userInfo = "SELECT UserId, FirstName, UserImg FROM Account WHERE UserEmail = '". $this->allPostedData[$i]['UserEmail'] ."'";
           $result = $this->conn->query($userInfo);
           if($result->num_rows > 0 == 1) {
             $row = $result->fetch_assoc();
+            $this->allPostedData[$i]['UserId'] = $row['UserId'];
             $this->allPostedData[$i]['UserName'] = $row['FirstName'];
             $this->allPostedData[$i]['ImageAddress'] = $row['UserImg'];
           }
@@ -181,7 +182,7 @@
       $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($find);
 
-      if($result->fetch_assoc() > 0) {
+      if($result->num_rows > 0) {
         $insert = "INSERT INTO Posts (UserEmail, PostComment, PostImage)
         VALUES('$userEmail', '$postComment', '$postImage')";
           if($this->conn->query($insert)) {
@@ -234,7 +235,7 @@
       $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($find);
 
-      if($result->fetch_assoc() > 0) {
+      if($result->num_rows > 0) {
         $post = "UPDATE Account SET UserPassword = '$newPwd' WHERE UserEmail = '$userEmail'";
         if ($this->conn->query($post) === TRUE) {
           return true;
@@ -252,7 +253,7 @@
       $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($find);
 
-      if($result->fetch_assoc() > 0) {
+      if($result->num_rows > 0) {
         $update = "UPDATE Account SET FirstName = '$firstName', LastName = '$lastName',
         UserMobile = '$mobile', UserImg = '$userImage', UserBio = '$userBio' WHERE UserEmail = '$userEmail'";
         if ($this->conn->query($update) === TRUE) {
@@ -271,7 +272,7 @@
       $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($find);
 
-      if($result->fetch_assoc() > 0) {
+      if($result->num_rows > 0) {
         $update = "UPDATE Account SET FirstName = '$firstName', LastName = '$lastName',
         UserMobile = '$mobile', UserBio = '$userBio' WHERE UserEmail = '$userEmail'";
         if ($this->conn->query($update) === TRUE) {
@@ -283,6 +284,28 @@
       }
       else {
         return false;
+      }
+    }
+
+    public function getOthersProfile($userId) {
+      $getProfile = "SELECT FirstName, LastName, UserEmail, UserImg FROM Account WHERE UserId = $userId";
+      $profile = $this->conn->query($getProfile);
+      if($profile->num_rows > 0) {
+        $profileData = $profile->fetch_assoc();
+        $userEmail = $profileData['UserEmail'];
+        $getPosts = "SELECT PostComment, PostImage FROM Posts WHERE UserEmail = '$userEmail'";
+        $posts = $this->conn->query($getPosts);
+        $i = 0;
+        if($posts->num_rows > 0) {
+          while($postsData = $posts->fetch_assoc()) {
+            $allPostsData[$i++] = $postsData;
+          }
+          return [$profileData, $allPostsData];
+        }
+        return [$profileData, null];
+      }
+      else {
+        return null;
       }
     }
 

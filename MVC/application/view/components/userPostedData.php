@@ -3,8 +3,12 @@
     <div class="card-display">
       <div class="post_by_user">
         <div>
-          <a href="#"><img src="<?php echo $rowWise['ImageAddress']; ?>"></a>
-          <a href="#"><h6><?php echo $rowWise['UserName']; ?></h6></a>
+          <a href="http://mvc-task.com/afterLogin/profiles/<?php echo $rowWise['UserId']; ?>">
+            <img src="<?php echo $rowWise['ImageAddress']; ?>">
+          </a>
+          <a href="http://mvc-task.com/afterLogin/profiles/<?php echo $rowWise['UserId']; ?>">
+            <h6><?php echo $rowWise['UserName']; ?></h6>
+          </a>
         </div>
       </div>
       <div><p><?php echo $rowWise['PostComment']; ?></p></div>
