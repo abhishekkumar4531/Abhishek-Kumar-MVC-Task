@@ -1,7 +1,7 @@
 <?php if(isset($GLOBALS['userInfo'])) { ?>
   <div class="user-identity">
     <div>
-      <img src="<?php echo $GLOBALS['userInfo']['UserImg']; ?>" width="180" height="180">
+      <img src="/<?php echo $GLOBALS['userInfo']['UserImg']; ?>" width="180" height="180">
     </div>
     <div>
       <h3><?php echo $GLOBALS['userInfo']['FirstName'] ." ". $GLOBALS['userInfo']['LastName']; ?></h3>
@@ -19,10 +19,10 @@
             if($rowWise['PostType'] == "video/wmv" || $rowWise['PostType'] == "video/avi" || $rowWise['PostType'] == "video/mpeg" ||
             $rowWise['PostType'] == "video/mpg" || $rowWise['PostType'] == "video/mp4") { ?>
               <video width="100%" height="100%" controls>
-                <source src="http://mvc-task.com/assets/videos/<?php echo $rowWise['PostName']; ?>" type="video/mp4">
+                <source src="/assets/videos/<?php echo $rowWise['PostName']; ?>" type="video/mp4">
               </video>
           <?php } else { ?>
-            <img src="http://mvc-task.com/assets/uploads/<?php echo $rowWise['PostName']; ?>">
+            <img src="/assets/uploads/<?php echo $rowWise['PostName']; ?>">
           <?php } ?>
         </div>
         <div class="bot-icons d-flex justify-content-around">

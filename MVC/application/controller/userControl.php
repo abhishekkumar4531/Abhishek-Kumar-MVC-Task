@@ -107,7 +107,7 @@
             $GLOBALS['imageError'] = false;
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
+            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "assets/uploads/$img_name");
             $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
             if($status){
               $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;

@@ -1,4 +1,4 @@
-<form action="http://mvc-task.com/userControl/userLogin" method="post">
+<form action="/userControl/userLogin" method="post">
   <dl>
     <dt>Enter User-Email</dt>
     <dd>
@@ -31,14 +31,14 @@
     ?>
     </dd>
     <dd>
-      <a href="http://mvc-task.com/userControl/sendOTP">Reset password!</a>
+      <a href="/userControl/sendOTP">Reset password!</a>
     </dd>
 
     <dd>
       <button name="submitLogin" id="submitBtn">Login</button>
     </dd>
     <dd>
-      <a href="http://mvc-task.com/userControl/userSignup">New user?</a>
+      <a href="/userControl/userSignup">New user?</a>
     </dd>
   </dl>
 </form>

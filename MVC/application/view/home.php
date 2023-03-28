@@ -6,17 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home-Page</title>
   <?php include "components/header.php" ?>
-  <script type="text/javascript">
-    <?php include "components/loadMore.js" ?>
-  </script>
+  <script src="assets/js/loadMore.js"></script>
 </head>
-<body class="parent-tag">
+<body class="parent-tag" onload="darkModeLoad()">
   <?php include "components/navbar.php" ?>
   <div class="container">
-    <div class="form-check form-switch">
-      <label for="switchToDark">Switch to Dark Mode</label>
-      <input type="checkbox" onchange="darkMode()" type="checkbox" role="switch" name="switchToDark" id="switchToDark" class="form-check-input">
-    </div>
     <div class="home-page">
       <h5>Welcome back <?php if(isset($_SESSION['logged_in'])) {echo $_SESSION['userFirstName'];}?></h5>
       <?php include "components/userPostForm.php" ?>

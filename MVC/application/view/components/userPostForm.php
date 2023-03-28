@@ -1,10 +1,10 @@
 <div class="post-container">
   <div class="post-container-display">
     <div class="current-user-picture">
-      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
+      <img src="/<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
     </div>
     <div class="post-container-content">
-      <form action="http://mvc-task.com/afterLogin/postData" method="post" enctype="multipart/form-data">
+      <form action="/afterLogin/postData" method="post" enctype="multipart/form-data">
         <div class="upload-container">
           <div class="upload-container-textarea">
             <textarea name="newPost" id="newPost" cols="90" rows="5" placeholder="What's in your mind!" required></textarea>

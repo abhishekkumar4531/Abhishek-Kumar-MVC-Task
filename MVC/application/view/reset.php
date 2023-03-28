@@ -7,7 +7,7 @@
   <?php include "components/header.php" ?>
   <title>Reset-Password</title>
 </head>
-<body class="parent-tag">
+<body class="parent-tag" onload="darkModeLoad()">
   <?php include "components/navbar.php" ?>
   <div class="container">
     <div class="form-content">

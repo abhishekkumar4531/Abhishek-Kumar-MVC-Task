@@ -3,8 +3,23 @@
   padding: 0px;
   font-family: Arial, Helvetica, sans-serif;
 }
+:root:not(.dark-mode) {
+  --primary-color: bisque;
+  --secondary-color: rgb(223, 169, 103);
+  --anchor-tag-color: black;
+  --change-color: white;
+  --fixed-color: black;
+}
+.dark-mode {
+  --primary-color: black;
+  --secondary-color: rgb(153, 12, 12);
+  --anchor-tag-color: white;
+  --change-color: black;
+  --fixed-color: black;
+  color: white;
+}
 body, .parent-tag {
-  background-color: bisque;
+  background-color: var(--primary-color);
 }
 nav ul {
   display: flex;
@@ -16,7 +31,7 @@ nav ul {
 nav a {
   display: inline-block;
   padding: 10px;
-  color: black;
+  color: var(--anchor-tag-color);
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
 }
@@ -49,7 +64,8 @@ form button, #loadMore {
   width: 100%;
   font-size: 17px;
   font-weight: bold;
-  background-color: rgb(223, 169, 103);
+  background-color: var(--secondary-color);
+  color: var(--anchor-tag-color);
   border: none;
 }
 .form-container {
@@ -62,7 +78,7 @@ form button, #loadMore {
   transform: translateX(-50%);
 }
 nav {
-  background-color: rgb(223, 169, 103);
+  background-color: var(--secondary-color);
 }
 .container {
   width: 1200px;
@@ -100,7 +116,7 @@ nav {
   border-radius: 5px;
   box-shadow: 2px 2px black;
   padding: 10px;
-  background-color: white;
+  background-color: var(--change-color);
 }
 .col-6 img {
   width: 100%;
@@ -117,7 +133,7 @@ nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: black;
+  color: var(--fixed-color);
   padding: 30px 50px;
 }
 .first-column h2 {
@@ -148,6 +164,9 @@ nav {
   display: flex;
   flex-wrap: wrap;
 }
+.post_by_user a h6 {
+  color: var(--fixed-color);
+}
 .upload-container-button {
   display: flex;
 }
@@ -172,6 +191,7 @@ nav {
   box-shadow: 3px 3px rgb(192, 189, 189);
   padding: 20px;
   border-radius: 10px;
+  color: var(--fixed-color);
 }
 .post-display {
   display: flex;
@@ -189,6 +209,7 @@ nav {
 }
 .post-display .card-display {
   background-color: white;
+  color: var(--fixed-color);
   padding: 15px;
   border-radius: 10%;
   box-shadow: 3px 3px rgb(192, 189, 189);
@@ -223,7 +244,7 @@ nav {
 }
 .post_by_user a {
   text-decoration: none;
-  color: black;
+  color: var(--anchor-tag-color);
 }
 .user-identity {
   text-align: center;

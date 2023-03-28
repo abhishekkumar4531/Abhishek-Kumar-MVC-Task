@@ -1,5 +1,5 @@
 <div>
-  <form action="http://mvc-task.com/userControl/resetPwd" method="post">
+  <form action="/userControl/resetPwd" method="post">
     <dl>
       <dt>Enter Your Registered Email</dt>
       <dd>

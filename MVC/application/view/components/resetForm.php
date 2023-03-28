@@ -1,5 +1,5 @@
 <div>
-  <form action="http://mvc-task.com/userControl/resetPassword" method="post">
+  <form action="/userControl/resetPassword" method="post">
     <dl>
       <dt>Your Name</dt>
       <dd>

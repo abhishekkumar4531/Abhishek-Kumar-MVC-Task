@@ -1,7 +1,7 @@
 <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) { ?>
   <div>
     <div class="user-identity">
-      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="180" height="180">
+      <img src="/<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="180" height="180">
     </div>
     <h3>
       <?php echo $_SESSION['userFirstName'] ." ". $_SESSION['userLastName']; ?>

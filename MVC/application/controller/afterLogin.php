@@ -61,7 +61,7 @@
           $img_tmp = $_FILES['newImage']['tmp_name'];
           $img_type = $_FILES['newImage']['type'];
 
-          if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
+          if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg" || $img_type == "image/gif") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
             $obj = new UserAccount();
@@ -125,7 +125,7 @@
           if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-            $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
+            $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "assets/uploads/$img_name", $userBio);
             if($updateStatus) {
               //$this->userProfile();
               header("location: /afterLogin/userProfile");
@@ -170,7 +170,8 @@
           include "../application/view/components/userPostedData.php";
         }
         else {
-          $this->view("home");
+          //$this->view("home");
+          header("location: /afterLogin");
         }
         //$this->view("home");
       }

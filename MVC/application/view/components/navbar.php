@@ -4,42 +4,45 @@
       <li>
         <?php
           if(isset($_SESSION['logged_in'])) {
-            echo '<a href="http://mvc-task.com/afterLogin">Home</a>';
+            echo '<a href="/afterLogin">Home</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl">Home</a>';
+            echo '<a href="/userControl">Home</a>';
           }
         ?>
       </li>
       <li>
         <?php
           if(isset($_SESSION['logged_in'])) {
-            echo '<a href="http://mvc-task.com/afterLogin/userPosts">Account</a>';
+            echo '<a href="/afterLogin/userPosts">Account</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl">Account</a>';
+            echo '<a href="/userControl">Account</a>';
           }
         ?>
       </li>
       <li>
         <?php
           if(isset($_SESSION['logged_in'])) {
-            echo '<a href="http://mvc-task.com/afterLogin/userProfile">Profile</a>';
+            echo '<a href="/afterLogin/userProfile">Edit profile</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl/userSignup">Register</a>';
+            echo '<a href="/userControl/userSignup">Register</a>';
           }
         ?>
       </li>
       <li>
         <?php
           if(isset($_SESSION['logged_in'])) {
-            echo '<a href="http://mvc-task.com/afterLogin/userLogout">Logout</a>';
+            echo '<a href="/afterLogin/userLogout">Logout</a>';
           }
           else{
-            echo '<a href="http://mvc-task.com/userControl">Login</a>';
+            echo '<a href="/userControl">Login</a>';
           }
         ?>
+      </li>
+      <li class="form-check form-switch">
+        <button class="btn btn-link p-1 mt-2" onclick="darkMode()" name="switchToDark" id="switchToDark">Switch Mode</button>
       </li>
     </ul>
   </div>

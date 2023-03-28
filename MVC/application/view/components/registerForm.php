@@ -1,4 +1,4 @@
-<form action="http://mvc-task.com/userControl/userRegistration" method="post" enctype="multipart/form-data">
+<form action="/userControl/userRegistration" method="post" enctype="multipart/form-data">
   <dl>
     <dt><label for="first_name">Enter your first name</label></dt>
     <dd>
@@ -85,7 +85,7 @@
       <button name="submitBtn" id="submitBtn">Register</button>
     </dd>
     <dd>
-      <a href="http://mvc-task.com/userControl">Exiting user?</a>
+      <a href="/userControl">Exiting user?</a>
     </dd>
   </dl>
 </form>

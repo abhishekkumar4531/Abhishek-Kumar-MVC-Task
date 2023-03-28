@@ -5,7 +5,7 @@ $(document).on('click','#getStarted',function(e){
 $( document ).ready(function() {
   $.ajax({
     type: "GET",
-    url: "http://mvc-task.com/afterLogin/loadInitialContent",
+    url: "/afterLogin/loadInitialContent",
     dataType: "html",
     success: function(data){
       $("#post-display").html(data);
@@ -16,7 +16,7 @@ $( document ).ready(function() {
 $(document).on('click','#loadMore',function(e){
   $.ajax({
     type: "GET",
-    url: "http://mvc-task.com/afterLogin/loadMoreContent",
+    url: "/afterLogin/loadMoreContent",
     dataType: "html",
     success: function(data){
       $("#post-display").html(data);
