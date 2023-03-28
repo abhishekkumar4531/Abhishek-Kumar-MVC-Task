@@ -61,27 +61,44 @@
           $img_tmp = $_FILES['newImage']['tmp_name'];
           $img_type = $_FILES['newImage']['type'];
 
-          /*if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
+          if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+            $obj = new UserAccount();
+            $status = $obj->storePost($_SESSION['logged_in'], $comment, $img_type, $img_name);
+            $store = $obj->publicPostData($_SESSION['logged_in'], $comment, $img_type, $img_name);
+            if($store) {
+              $userPostData = $obj->showPost($_SESSION['logged_in']);
+              $userPostData = $obj->showPublicPost(0);
+              $_SESSION['userPostedData'] = $userPostData;
+              header("location: /afterLogin");
+            }
+            else {
+              header("location: /afterLogin");
+              //$this->view("home");
+            }
+          }
+          else if($img_type == "video/wmv" || $img_type == "video/avi" || $img_type == "video/mpeg" || $img_type == "video/mpg" || $img_type == "video/mp4") {
+            move_uploaded_file($img_tmp, "assets/videos/". $img_name);
+            //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+            $obj = new UserAccount();
+            $status = $obj->storePost($_SESSION['logged_in'], $comment, $img_type, $img_name);
+            $store = $obj->publicPostData($_SESSION['logged_in'], $comment, $img_type, $img_name);
+            if($store) {
+              $userPostData = $obj->showPost($_SESSION['logged_in']);
+              $userPostData = $obj->showPublicPost(0);
+              $_SESSION['userPostedData'] = $userPostData;
+              header("location: /afterLogin");
+            }
+            else {
+              header("location: /afterLogin");
+              //$this->view("home");
+            }
           }
           else {
             echo "<script>alert('Please check file error!!!');</script>";
             $this->view("home");
-          }*/
-          move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
-          $obj = new UserAccount();
-          $status = $obj->storePost($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
-          $store = $obj->publicPostData($_SESSION['logged_in'], $comment, "http://mvc-task.com/assets/uploads/$img_name");
-          if($store) {
-            //$userPostData = $obj->showPost($_SESSION['logged_in']);
-            $userPostData = $obj->showPublicPost(0);
-            $_SESSION['userPostedData'] = $userPostData;
-            header("location: /afterLogin");
-          }
-          else {
-            header("location: /afterLogin");
-            //$this->view("home");
+            //header("location: /afterLogin");
           }
         }
       }
@@ -92,6 +109,7 @@
     }
 
     public function editUserProfile() {
+      session_start();
       if(isset($_POST['update'])) {
         $userEmail = $_POST['email'];
         $userBio = htmlspecialchars($_POST['user_bio'], ENT_QUOTES);
@@ -107,19 +125,20 @@
           if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+            $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
+            if($updateStatus) {
+              //$this->userProfile();
+              header("location: /afterLogin/userProfile");
+            }
+            else {
+              //$this->userProfile();
+              header("location: /afterLogin/userProfile");
+            }
           }
           else {
-            //$this->view("register");
-            header("location: /afterLogin/userProfile");
-          }
-          $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "http://mvc-task.com/assets/uploads/$img_name", $userBio);
-          if($updateStatus) {
-            //$this->userProfile();
-            header("location: /afterLogin/userProfile");
-          }
-          else {
-            //$this->userProfile();
-            header("location: /afterLogin/userProfile");
+            echo "<script>alert('Please check image file type !!!');</script>";
+            $this->view("profile");
+            //header("location: /afterLogin/userProfile");
           }
         }
         else {
@@ -135,18 +154,24 @@
         }
       }
       else {
-        header("location: /afterLogin/userProfile");
+        session_destroy();
+        header("location: /userControl");
       }
     }
 
     public function loadMoreContent() {
       session_start();
       if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        $count = count($_SESSION['userPostedData']);
-        $obj = new UserAccount;
-        $userPostData = $obj->showPublicPost($count);
-        $_SESSION['userPostedData'] = $userPostData;
-        include "../application/view/components/userPostedData.php";
+        if(!empty($_SESSION['userPostedData'])) {
+          $count = count($_SESSION['userPostedData']);
+          $obj = new UserAccount;
+          $userPostData = $obj->showPublicPost($count);
+          $_SESSION['userPostedData'] = $userPostData;
+          include "../application/view/components/userPostedData.php";
+        }
+        else {
+          $this->view("home");
+        }
         //$this->view("home");
       }
       else {

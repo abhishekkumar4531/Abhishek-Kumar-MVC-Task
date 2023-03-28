@@ -57,7 +57,7 @@
     </dd> -->
 
     <dd>
-      <button name="update" id="submitBtn">Submit</button>
+      <button name="update" id="submitBtn">Update</button>
     </dd>
     <dd>
       <a href="http://mvc-task.com/afterLogin">Go to back</a>

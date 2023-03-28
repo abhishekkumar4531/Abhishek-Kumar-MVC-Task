@@ -82,7 +82,7 @@
     </dd>
 
     <dd>
-      <button name="submitBtn" id="submitBtn">Registered</button>
+      <button name="submitBtn" id="submitBtn">Register</button>
     </dd>
     <dd>
       <a href="http://mvc-task.com/userControl">Exiting user?</a>

@@ -76,3 +76,12 @@ function confirmPassword() {
     document.getElementById("submitBtn").disabled = true;
   }
 }
+function darkMode() {
+  var dark = document.getElementById("switchToDark");
+  if(dark.checked) {
+    alert("Changed");
+  }
+  else {
+    alert("Normal");
+  }
+}

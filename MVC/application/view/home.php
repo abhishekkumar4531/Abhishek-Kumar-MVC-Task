@@ -13,6 +13,10 @@
 <body class="parent-tag">
   <?php include "components/navbar.php" ?>
   <div class="container">
+    <div class="form-check form-switch">
+      <label for="switchToDark">Switch to Dark Mode</label>
+      <input type="checkbox" onchange="darkMode()" type="checkbox" role="switch" name="switchToDark" id="switchToDark" class="form-check-input">
+    </div>
     <div class="home-page">
       <h5>Welcome back <?php if(isset($_SESSION['logged_in'])) {echo $_SESSION['userFirstName'];}?></h5>
       <?php include "components/userPostForm.php" ?>

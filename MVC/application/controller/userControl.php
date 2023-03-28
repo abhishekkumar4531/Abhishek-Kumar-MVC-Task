@@ -40,36 +40,6 @@
       }
     }
 
-    /*public function userLogout() {
-      if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        $this->view("logout");
-      }
-      else {
-        echo "<script>alert('First log-in!!!');</script>";
-        //header("location: /login");
-        $this->view("userControl");
-      }
-    }*/
-
-    /*public function userProfile() {
-      if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        $obj = new userAccount();
-        $data = $obj->showProfile($_SESSION['logged_in']);
-        $_SESSION['userFirstName'] = $data[0];
-        $_SESSION['userLastName'] = $data[1];
-        //$_SESSION['userPassword'] = $data[2];
-        $_SESSION['userMobile'] = $data[3];
-        //$_SESSION['userEmail'] = $data[4];
-        $_SESSION['userImageAddress'] = $data[5];
-        $this->view("profile");
-      }
-      else {
-        echo "<script>alert('First log-in!!!');</script>";
-        //header("location: /userControl");
-        $this->view("userControl");
-      }
-    }*/
-
     public function userLogin() {
       if(isset($_POST['submitLogin'])) {
         $userEmail = $_POST['useremail'];
@@ -137,21 +107,21 @@
             $GLOBALS['imageError'] = false;
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
+            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
+            $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+            if($status){
+              $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+              //$this->view("login");
+              header("location: /userControl");
+            }
+            else {
+              $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
+              $this->view("register");
+              //header("location: /userControl/userSignup");
+            }
           }
           else {
-            //$this->view("register");
             $GLOBALS['imageError'] = true;
-            header("location: /userControl/userSignup");
-          }
-          $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "http://mvc-task.com/assets/uploads/$img_name");
-          $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
-          if($status){
-            $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
-            //$this->view("login");
-            header("location: /userControl");
-          }
-          else {
-            $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
             $this->view("register");
             //header("location: /userControl/userSignup");
           }

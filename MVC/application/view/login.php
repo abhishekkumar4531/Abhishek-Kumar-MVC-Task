@@ -10,6 +10,10 @@
 <body class="parent-tag">
   <?php include "components/navbar.php" ?>
   <div class="container">
+    <div class="form-check form-switch">
+      <label for="switchToDark">Switch to Dark Mode</label>
+      <input type="checkbox" type="checkbox" onchange="darkMode()" role="switch" name="switchToDark" id="switchToDark" class="form-check-input">
+    </div>
     <div class="form-content">
       <div class="form-field">
         <h1>User Log-in Page</h1>

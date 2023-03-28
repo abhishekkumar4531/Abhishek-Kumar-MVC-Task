@@ -74,7 +74,7 @@
       $this->conn->close();
     }
 
-    public function storePost($userEmail, $comment, $image) {
+    public function storePost($userEmail, $comment, $postType, $postName) {
       $verify = "SELECT UserId, FirstName FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($verify);
 
@@ -86,7 +86,7 @@
         $checkTable = $connection->query("SHOW TABLES LIKE '$tableName'");
         if ($checkTable->num_rows == 1){
           //echo "DB is Connected <br>";
-          $insert = "INSERT INTO $tableName(postComment, postImage) VALUES('$comment', '$image')";
+          $insert = "INSERT INTO $tableName(postComment, postType, postName) VALUES('$comment', '$postType', '$postName')";
           if($connection->query($insert)) {
             return true;
           }
@@ -98,11 +98,12 @@
           $sql = "CREATE TABLE $tableName(
             postId INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             postComment VARCHAR(1000)NOT NULL,
-            postImage VARCHAR(500)NOT NULL
+            postType VARCHAR(500)NOT NULL,
+            postName VARCHAR(500)NOT NULL
           );";
           $tableCreation = $connection->query($sql);
           if($tableCreation) {
-            $insert = "INSERT INTO $tableName(postComment, postImage) VALUES('$comment', '$image')";
+            $insert = "INSERT INTO $tableName(postComment, postType, postName) VALUES('$comment', '$postType', '$postName')";
             if($connection->query($insert)) {
               return true;
             }
@@ -131,7 +132,7 @@
         $tableName = $row['FirstName']."".$row['UserId'];
         $checkTable = $connection->query("SHOW TABLES LIKE '$tableName'");
         if($checkTable->num_rows == 1) {
-          $fetchData = "SELECT postComment, postImage FROM $tableName";
+          $fetchData = "SELECT postComment, postType, postName FROM $tableName";
           $execute = $connection->query($fetchData);
           $i=0;
           if($execute->num_rows > 0) {
@@ -150,7 +151,7 @@
     }
 
     public function showPublicPost($i) {
-      $fetchData = "SELECT UserEmail, PostComment, PostImage FROM Posts ORDER BY PostId DESC";
+      $fetchData = "SELECT UserEmail, PostComment, PostType, PostName FROM Posts ORDER BY PostId DESC";
       $execute = $this->conn->query($fetchData);
       $count = $i + 9;
       $i = 0;
@@ -178,13 +179,13 @@
       $this->conn->close();
     }
 
-    public function publicPostData($userEmail, $postComment, $postImage) {
+    public function publicPostData($userEmail, $postComment, $postType, $postName) {
       $find = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
       $result = $this->conn->query($find);
 
       if($result->num_rows > 0) {
-        $insert = "INSERT INTO Posts (UserEmail, PostComment, PostImage)
-        VALUES('$userEmail', '$postComment', '$postImage')";
+        $insert = "INSERT INTO Posts (UserEmail, PostComment, PostType, PostName)
+        VALUES('$userEmail', '$postComment', '$postType', '$postName')";
           if($this->conn->query($insert)) {
             return true;
           }
@@ -293,7 +294,7 @@
       if($profile->num_rows > 0) {
         $profileData = $profile->fetch_assoc();
         $userEmail = $profileData['UserEmail'];
-        $getPosts = "SELECT PostComment, PostImage FROM Posts WHERE UserEmail = '$userEmail'";
+        $getPosts = "SELECT PostComment, PostType, PostName FROM Posts WHERE UserEmail = '$userEmail'";
         $posts = $this->conn->query($getPosts);
         $i = 0;
         if($posts->num_rows > 0) {
