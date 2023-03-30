@@ -28,6 +28,20 @@
         </div>
       </div>
     </div>
+    <div class="fixed-position">
+      <ul class="share-icons">
+        <li>
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>">
+            <span class="bi bi-facebook"></span>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.twitter.com/share?url=<?php //echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>">
+            <span class="bi bi-twitter"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </body>
 </html>

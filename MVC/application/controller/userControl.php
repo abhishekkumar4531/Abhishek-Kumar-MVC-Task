@@ -1,5 +1,6 @@
 <?php
   require '../application/model/userAccount.php';
+  require '../../vendor/autoload.php';
   class UserControl extends Framework {
     public function index() {
       session_start();
@@ -13,6 +14,26 @@
       else {
         header("location: /afterLogin");
         //header("location: /home");
+      }
+    }
+
+    public function loginWithGoogle() {
+      session_start();
+      if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+        $google_client = new Google_Client();
+        $google_client->setClientId('963839829638-i7gg6p0q1k8553225mo7p860d2kalji5.apps.googleusercontent.com');
+        $google_client->setClientSecret('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');
+        $google_client->setRedirectUri('http://mvc-task.com/afterLogin');
+        $google_client->addScope('email');
+        $google_client->addScope('profile');
+        if(!isset($_SESSION['access_token']))
+        {
+          header("location: ". $google_client->createAuthUrl());
+        }
+      }
+      else {
+        header("location: /afterLogin");
+        //$this->view("home");
       }
     }
 

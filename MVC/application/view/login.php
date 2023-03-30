@@ -13,6 +13,9 @@
     <div class="form-content">
       <div class="form-field">
         <h1>User Log-in Page</h1>
+        <div>
+          <a href="/userControl/loginWithGoogle">Login with gmail!</a>
+        </div>
         <?php include "components/loginForm.php" ?>
       </div>
     </div>

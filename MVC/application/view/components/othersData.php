@@ -30,6 +30,14 @@
           <a href="#"><span class="bi bi-chat"></span></a>
           <a href="#"><span class="bi bi-share"></span></a>
         </div>
+        <div class="share-icons d-flex justify-content-start">
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>&t=<?php echo $rowWise['PostComment']; ?>">
+            <span class="bi bi-facebook"></span>
+          </a>
+          <a target="_blank" href="https://www.twitter.com/share?url=<?php //echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>&text=<?php echo $rowWise['PostComment']; ?>">
+            <span class="bi bi-twitter"></span>
+          </a>
+      </div>
       </div>
     <?php } ?>
   <?php } ?>
