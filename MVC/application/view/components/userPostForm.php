@@ -1,7 +1,7 @@
 <div class="post-container">
   <div class="post-container-display">
     <div class="current-user-picture">
-      <img src="/<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
+      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
     </div>
     <div class="post-container-content">
       <form action="/afterLogin/postData" method="post" enctype="multipart/form-data">

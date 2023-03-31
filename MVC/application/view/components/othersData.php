@@ -1,7 +1,7 @@
 <?php if(isset($GLOBALS['userInfo'])) { ?>
   <div class="user-identity">
     <div>
-      <img src="/<?php echo $GLOBALS['userInfo']['UserImg']; ?>" width="180" height="180">
+      <img src="<?php echo $GLOBALS['userInfo']['UserImg']; ?>" width="180" height="180">
     </div>
     <div>
       <h3><?php echo $GLOBALS['userInfo']['FirstName'] ." ". $GLOBALS['userInfo']['LastName']; ?></h3>

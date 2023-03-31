@@ -4,7 +4,7 @@
       <div class="post_by_user">
         <div>
           <a href="/afterLogin/profiles/<?php echo $rowWise['UserId']; ?>">
-            <img src="/<?php echo $rowWise['ImageAddress']; ?>">
+            <img src="<?php echo $rowWise['ImageAddress']; ?>">
           </a>
           <a href="/afterLogin/profiles/<?php echo $rowWise['UserId']; ?>">
             <h6><?php echo $rowWise['UserName']; ?></h6>

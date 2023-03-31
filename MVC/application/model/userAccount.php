@@ -61,16 +61,19 @@
 
       $result = $this->conn->query($data);
 
-      $row = $result->fetch_assoc();
-      $userData[0]  = $row['FirstName'];
-      $userData[1]  = $row['LastName'];
-      $userData[2]  = $row['UserPassword'];
-      $userData[3]  = $row['UserMobile'];
-      $userData[4]  = $row['UserEmail'];
-      $userData[5]  = $row['UserImg'];
-      $userData[6]  = $row['UserBio'];
+      if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $userData[0]  = $row['FirstName'];
+        $userData[1]  = $row['LastName'];
+        $userData[2]  = $row['UserPassword'];
+        $userData[3]  = $row['UserMobile'];
+        $userData[4]  = $row['UserEmail'];
+        $userData[5]  = $row['UserImg'];
+        $userData[6]  = $row['UserBio'];
+        return $userData;
+      }
 
-      return $userData;
+      return null;
       $this->conn->close();
     }
 

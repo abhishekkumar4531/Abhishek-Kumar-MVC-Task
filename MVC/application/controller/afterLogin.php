@@ -35,14 +35,19 @@
       if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
         $obj = new UserAccount();
         $data = $obj->showProfile($_SESSION['logged_in']);
-        $_SESSION['userFirstName'] = $data[0];
-        $_SESSION['userLastName'] = $data[1];
-        //$_SESSION['userPassword'] = $data[2];
-        $_SESSION['userMobile'] = $data[3];
-        //$_SESSION['userEmail'] = $data[4];
-        $_SESSION['userImageAddress'] = $data[5];
-        $_SESSION['userBio'] = $data[6];
-        $this->view("profile");
+        if($data != null) {
+          $_SESSION['userFirstName'] = $data[0];
+          $_SESSION['userLastName'] = $data[1];
+          //$_SESSION['userPassword'] = $data[2];
+          $_SESSION['userMobile'] = $data[3];
+          //$_SESSION['userEmail'] = $data[4];
+          $_SESSION['userImageAddress'] = $data[5];
+          $_SESSION['userBio'] = $data[6];
+          $this->view("profile");
+        }
+        else {
+          $this->view("profile");
+        }
       }
       else {
         session_destroy();
@@ -125,7 +130,7 @@
           if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-            $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "assets/uploads/$img_name", $userBio);
+            $updateStatus = $obj->updateProfile($userEmail, $firstName, $lastName, $mobile, "/assets/uploads/$img_name", $userBio);
             if($updateStatus) {
               //$this->userProfile();
               header("location: /afterLogin/userProfile");

@@ -1,6 +1,6 @@
 <?php
   require '../application/model/userAccount.php';
-  require '../../vendor/autoload.php';
+  //require_once '../../vendor/autoload.php';
   class UserControl extends Framework {
     public function index() {
       session_start();
@@ -19,16 +19,34 @@
 
     public function loginWithGoogle() {
       session_start();
+      require "../config/googleConfig.php";
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        $google_client = new Google_Client();
-        $google_client->setClientId('963839829638-i7gg6p0q1k8553225mo7p860d2kalji5.apps.googleusercontent.com');
-        $google_client->setClientSecret('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');
-        $google_client->setRedirectUri('http://mvc-task.com/afterLogin');
-        $google_client->addScope('email');
-        $google_client->addScope('profile');
-        if(!isset($_SESSION['access_token']))
-        {
-          header("location: ". $google_client->createAuthUrl());
+        if(isset($_GET["code"])){
+
+          $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+
+
+          if(!isset($token['error'])) {
+
+            $google_client->setAccessToken($token['access_token']);
+
+            $_SESSION['access_token'] = $token['access_token'];
+
+            $google_service = new Google_Service_Oauth2($google_client);
+
+            $data = $google_service->userinfo->get();
+
+            $_SESSION['userFirstName'] = $data['given_name'];
+            $_SESSION['userLastName'] = $data['family_name'];
+            $_SESSION['logged_in'] = $data['email'];
+            //   $_SESSION['user_gender'] = $data['gender'];
+            $_SESSION['userImageAddress'] = $data['picture'];
+            header("location: /afterLofin");
+          }
+        }
+        else {
+          session_destroy();
+          header("location: /userControl");
         }
       }
       else {
@@ -128,7 +146,7 @@
             $GLOBALS['imageError'] = false;
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "assets/uploads/$img_name");
+            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "/assets/uploads/$img_name");
             $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
             if($status){
               $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;

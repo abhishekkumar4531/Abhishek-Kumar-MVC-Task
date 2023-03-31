@@ -1,7 +1,7 @@
 <form action="/afterLogin/editUserProfile" method="post" enctype="multipart/form-data">
   <dl>
     <dd class="dd-img">
-      <img src="/<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
+      <img src="<?php echo $_SESSION['userImageAddress']; ?>" alt="" width="100" height="100">
     </dd>
     <dt><label for="user_img">Update Your Profile-Image</label></dt>
     <dd>
