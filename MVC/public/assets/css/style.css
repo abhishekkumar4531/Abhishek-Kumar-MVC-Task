@@ -278,6 +278,6 @@ nav {
 }
 
 #cookies-policy-page {
-  background-color: bisque;
+  background-color: var(--primary-color);
   font-weight: bold;
 }
