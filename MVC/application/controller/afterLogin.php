@@ -3,16 +3,21 @@
   require '../application/model/userAccount.php';
   class AfterLogin extends Framework {
 
+    /*function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }*/
+
     public function index(){
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        //echo "Error";
         //$this->view("login");
         session_destroy();
         header("location: /userControl");
       }
       else {
-        //echo "Success";
         $this->view("home");
       }
     }

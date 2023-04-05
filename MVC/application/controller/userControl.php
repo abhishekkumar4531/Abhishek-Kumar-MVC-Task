@@ -5,7 +5,7 @@
     public function index() {
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
-        if(!isset($_SESSION['storeOtp'])){
+        if(!isset($_SESSION['storeOtp'])) {
           session_destroy();
         }
         $this->view("login");
@@ -130,6 +130,12 @@
         $password = $_POST['pwd'];
         $mobile = $_POST['mobile'];
         $email = $_POST['email'];
+        if(isset($_POST['cookieStatus'])) {
+          $cookieStatus = $_POST['cookieStatus'];
+        }
+        else {
+          $cookieStatus = "Denied";
+        }
         $obj = new UserAccount();
         $status = $obj->newUserValidation($firstName, $lastName, $password, $mobile, $email);
         if($status[0]) {
@@ -146,7 +152,7 @@
             $GLOBALS['imageError'] = false;
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
-            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "/assets/uploads/$img_name");
+            $status = $obj->registerRequest($firstName, $lastName, $password, $mobile, $email, "/assets/uploads/$img_name", $cookieStatus);
             $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;
             if($status){
               $GLOBALS['DuplicateErrorMsg'] = $obj->duplicateEmailMsg;

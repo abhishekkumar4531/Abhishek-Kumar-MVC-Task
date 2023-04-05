@@ -17,5 +17,8 @@
       </div>
     </div>
   </div>
+  <!-- <div class="cookie-policy">
+    <?php //include "components/cookies-policy.php" ?>
+  </div> -->
 </body>
 </html>

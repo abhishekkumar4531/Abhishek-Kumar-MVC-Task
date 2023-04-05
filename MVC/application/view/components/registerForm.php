@@ -80,9 +80,15 @@
       }
       ?>
     </dd>
+    <dd class="input-group">
+      <span class="pe-2">
+        <input type="checkbox" class="form-check p-3" name="cookieStatus" id="cookieStatus" value="Accepted">
+      </span>
+      <span>Are you agree with our <a href="#">Term and Condition</a></span>
+    </dd>
 
     <dd>
-      <button name="submitBtn" id="submitBtn">Register</button>
+      <button name="submitBtn" id="submitBtn" onclick="checkedCookie()">Register</button>
     </dd>
     <dd>
       <a href="/userControl">Exiting user?</a>

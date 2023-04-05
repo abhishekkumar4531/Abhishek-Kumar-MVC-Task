@@ -7,7 +7,7 @@
   <?php include "components/header.php" ?>
   <title>Reset-Password</title>
 </head>
-<body class="parent-tag" onload="darkModeLoad()">
+<body class="parent-tag" onload="darkModeLoad();">
   <?php include "components/navbar.php" ?>
   <div class="container">
     <div class="form-content">
@@ -17,5 +17,8 @@
       </div>
     </div>
   </div>
+  <!-- <div class="cookie-policy">
+    <?php //include "components/cookies-policy.php" ?>
+  </div> -->
 </body>
 </html>

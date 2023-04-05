@@ -10,3 +10,4 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 <script src="/assets/js/userValidity.js?newversion"></script>
 <script src="/assets/js/validation.js"></script>
 <script src="/assets/js/darkMode.js"></script>
+<script src="/assets/js/cookiesInfo.js"></script>

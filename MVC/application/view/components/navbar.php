@@ -44,6 +44,9 @@
       <li class="form-check form-switch">
         <button class="btn btn-link p-1 mt-2" onclick="darkMode()" name="switchToDark" id="switchToDark">Switch Mode</button>
       </li>
+      <!-- <li class="">
+        <button class="btn btn-link p-1 mt-2" onclick="allowCookies()" name="cookies-policy" id="cookies-policy">Cookies Policy</button>
+      </li> -->
     </ul>
   </div>
 </nav>

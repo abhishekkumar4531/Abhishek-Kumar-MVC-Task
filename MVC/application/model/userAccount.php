@@ -33,7 +33,7 @@
       $this->conn->close();
     }
 
-    public function registerRequest($userFirstName, $userLastName, $userPassword, $userMobile, $userEmail, $userImage) {
+    public function registerRequest($userFirstName, $userLastName, $userPassword, $userMobile, $userEmail, $userImage, $cookieStatus) {
       $check_sql = "SELECT UserEmail FROM Account WHERE UserEmail = '$userEmail'";
 
       $result = $this->conn->query($check_sql);
@@ -43,8 +43,8 @@
         return false;
       }
       else{
-        $post = "INSERT INTO Account (FirstName, LastName, UserPassword, UserMobile, UserEmail, UserImg)
-        VALUES('$userFirstName', '$userLastName', '$userPassword', '$userMobile', '$userEmail', '$userImage')";
+        $post = "INSERT INTO Account (FirstName, LastName, UserPassword, UserMobile, UserEmail, UserImg, Cookie)
+        VALUES('$userFirstName', '$userLastName', '$userPassword', '$userMobile', '$userEmail', '$userImage', '$cookieStatus')";
         if($this->conn->query($post)) {
           $this->duplicateEmailMsg = false;
           return true;

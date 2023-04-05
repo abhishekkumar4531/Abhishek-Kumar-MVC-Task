@@ -271,3 +271,13 @@ nav {
   bottom: 30px;
   left: -80px;
 }
+
+.cookie-policy {
+  position: fixed;
+  bottom: 10px;
+}
+
+#cookies-policy-page {
+  background-color: bisque;
+  font-weight: bold;
+}
