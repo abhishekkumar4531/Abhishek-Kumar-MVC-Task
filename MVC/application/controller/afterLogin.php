@@ -3,12 +3,12 @@
   require '../application/model/userAccount.php';
   class AfterLogin extends Framework {
 
-    /*function test_input($data) {
+    public function testInput($data) {
       $data = trim($data);
       $data = stripslashes($data);
       $data = htmlspecialchars($data);
       return $data;
-    }*/
+    }
 
     public function index(){
       session_start();
@@ -107,8 +107,8 @@
           }
           else {
             echo "<script>alert('Please check file error!!!');</script>";
-            $this->view("home");
-            //header("location: /afterLogin");
+            header("location: /afterLogin");
+            //$this->view("home");
           }
         }
       }
@@ -126,6 +126,10 @@
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $mobile = $_POST['mobile'];
+        //$userEmail = $this->testInput($userEmail);
+        $firstName = $this->testInput($firstName);
+        $lastName = $this->testInput($lastName);
+        $mobile = $this->testInput($mobile);
         $obj = new UserAccount();
         if(!empty($_FILES['user_img']['name'])) {
           $img_name = $_FILES['user_img']['name'];

@@ -2,6 +2,14 @@
   require '../application/model/userAccount.php';
   //require_once '../../vendor/autoload.php';
   class UserControl extends Framework {
+
+    public function testInput($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+
     public function index() {
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
@@ -84,6 +92,9 @@
         $userEmail = $_POST['useremail'];
         $userPwds = $_POST['userpassword'];
 
+        $userEmail = $this->testInput($userEmail);
+        $userPwds = $this->testInput($userPwds);
+
         $obj = new UserAccount();
         $login_status = $obj->loginRequest($userEmail, $userPwds);
         $GLOBALS['emailErrorStatus'] = $obj->emailErrorMsg;
@@ -130,6 +141,11 @@
         $password = $_POST['pwd'];
         $mobile = $_POST['mobile'];
         $email = $_POST['email'];
+        $firstName = $this->testInput($firstName);
+        $lastName = $this->testInput($lastName);
+        $password = $this->testInput($password);
+        $mobile = $this->testInput($mobile);
+        $email = $this->testInput($email);
         if(isset($_POST['cookieStatus'])) {
           $cookieStatus = $_POST['cookieStatus'];
         }
@@ -188,7 +204,9 @@
     public function resetPwd() {
       if(isset($_POST['sendOtp'])) {
         $obj = new UserAccount();
-        $verify = $obj->verifyEmail($_POST['user_email']);
+        $userEmail = $_POST['user_email'];
+        $userEmail = $this->testInput($userEmail);
+        $verify = $obj->verifyEmail($userEmail);
         $GLOBALS['userEmailErrorStatus'] = $obj->userEmailErrorMsg;
         if($verify) {
           session_start();
@@ -214,8 +232,10 @@
     public function resetPassword() {
       if(isset($_POST['resetPwd'])) {
         session_start();
+        $getOtp = $_POST['otp'];
+        $getOtp = $this->testInput($getOtp);
         if(isset($_SESSION['storeOtp'])) {
-          if(number_format($_SESSION['storeOtp']) === number_format($_POST['otp'])) {
+          if(number_format($_SESSION['storeOtp']) === number_format($getOtp)) {
             $obj = new UserAccount();
             $update = $obj->updatePassword($_SESSION['resetUserEmail'], $_POST['newPassword']);
             if($update) {
