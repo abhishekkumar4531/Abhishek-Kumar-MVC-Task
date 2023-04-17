@@ -3,6 +3,12 @@
   require '../application/model/userAccount.php';
   class AfterLogin extends Framework {
 
+    /**
+     * testInput - For validate input values.
+     *
+     * @param  mixed $data
+     * @return void
+     */
     public function testInput($data) {
       $data = trim($data);
       $data = stripslashes($data);
@@ -10,6 +16,15 @@
       return $data;
     }
 
+    /**
+     * index
+     * This is default function of this class.
+     * Whenever AfterLogin will be initialise without other method it will be execute by default.
+     * Session working flow : First start the session and vrify is user logged in or no?
+     * If user logged in then go to home page other wise destroy the session and
+     * go to login page. [I follow this working flow of session in entire task]
+     * @return void
+     */
     public function index(){
       session_start();
       if(!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
@@ -22,6 +37,11 @@
       }
     }
 
+    /**
+     * userLogout - For logout.
+     *
+     * @return void
+     */
     public function userLogout() {
       session_start();
       if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
@@ -35,11 +55,21 @@
       }
     }
 
+    /**
+     * userProfile - For user profile page where user can see their profile.
+     * First it will check is user logged in or not?
+     * If user logged in then called a function @showProfile.
+     * @showProfile will fetched all the user's details from the database and return.
+     *
+     * @return void
+     */
     public function userProfile() {
       session_start();
       if((isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
         $obj = new UserAccount();
+        //Call the @showPrifile method and it will return array type of data.
         $data = $obj->showProfile($_SESSION['logged_in']);
+        //If @showProfile return not null then this statement will be execute
         if($data != null) {
           $_SESSION['userFirstName'] = $data[0];
           $_SESSION['userLastName'] = $data[1];
@@ -50,6 +80,7 @@
           $_SESSION['userBio'] = $data[6];
           $this->view("profile");
         }
+        //If somehow @showProfile return null
         else {
           $this->view("profile");
         }
@@ -62,8 +93,21 @@
       }
     }
 
+    /**
+     * postData - When user submit the post's form then it will be execute.
+     * It will also check if user is logged in or not?
+     * First it will fetch all the user entered value and then check file type.
+     * If all are satisfied then post data will be store in database through function
+     * First call @storePost it will store user's posts in a unique table for unique user.
+     * Then call @pubicPostData it will store user's post in a common table for all users.
+     * After successfully post it will reload the home page and latest post will display
+     * on top of the post's list.
+     *
+     * @return void
+     */
     public function postData() {
       session_start();
+      //If user logged in then continue
       if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
         if(isset($_POST['uploaded'])) {
           $comment = htmlspecialchars($_POST['newPost'], ENT_QUOTES);
@@ -71,6 +115,7 @@
           $img_tmp = $_FILES['newImage']['tmp_name'];
           $img_type = $_FILES['newImage']['type'];
 
+          //If file is image then check the image type
           if($img_type == "image/png" || $img_type == "image/jpeg" || $img_type == "image/jpg" || $img_type == "image/gif") {
             move_uploaded_file($img_tmp, "assets/uploads/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
@@ -83,11 +128,13 @@
               $_SESSION['userPostedData'] = $userPostData;
               header("location: /afterLogin");
             }
+            //If image type is not valid then redirect to home page
             else {
               header("location: /afterLogin");
               //$this->view("home");
             }
           }
+          //If file is video check the video type
           else if($img_type == "video/wmv" || $img_type == "video/avi" || $img_type == "video/mpeg" || $img_type == "video/mpg" || $img_type == "video/mp4") {
             move_uploaded_file($img_tmp, "assets/videos/". $img_name);
             //echo '<img src="http://mvc-task.com/assets/uploads/'. $img_name .'">';
@@ -105,6 +152,7 @@
               //$this->view("home");
             }
           }
+          //If video type is not valid then redirect to home page
           else {
             echo "<script>alert('Please check file error!!!');</script>";
             header("location: /afterLogin");
